@@ -1,6 +1,8 @@
 import { Facebook, Instagram, Youtube, Twitter, Send, MapPin, Phone, Mail, QrCode, MessageCircle } from "lucide-react";
+import { useLocale } from "@/i18n/LocaleProvider";
 
 export function Footer() {
+  const { t } = useLocale();
   return (
     <footer className="relative bg-[#020617] text-[#fdfcf6] pt-16 pb-10 overflow-hidden border-t border-white/5">
       {/* Background Ambience: Subtle Cosmic Dust */}
@@ -21,8 +23,7 @@ export function Footer() {
                 </h3>
               </div>
               <p className="text-sm text-[#fdfcf6]/40 leading-relaxed font-serif max-w-sm">
-                "The intersection of ancient Tantric algorithms and modern spiritual research. 
-                A 1,000-year lineage re-engineered for the digital age."
+                "{t("footer.tagline")}"
               </p>
             </div>
 
@@ -37,23 +38,23 @@ export function Footer() {
 
           {/* Column 2: Quick Navigation (Reference inspired) */}
           <div className="lg:col-span-2 space-y-8">
-            <h4 className="text-[10px] font-black tracking-[0.4em] uppercase text-gold">Nexus</h4>
+            <h4 className="text-[10px] font-black tracking-[0.4em] uppercase text-gold">{t("footer.nexus")}</h4>
             <ul className="space-y-4 text-sm text-[#fdfcf6]/40 font-serif">
-              <li><a href="#" className="hover:text-gold transition-colors">The Master</a></li>
-              <li><a href="#" className="hover:text-gold transition-colors">Sacred Rituals</a></li>
-              <li><a href="#" className="hover:text-gold transition-colors">Yantra Gallery</a></li>
-              <li><a href="#" className="hover:text-gold transition-colors">The Archive</a></li>
+              <li><a href="#" className="hover:text-gold transition-colors">{t("footer.theMaster")}</a></li>
+              <li><a href="#" className="hover:text-gold transition-colors">{t("footer.sacredRituals")}</a></li>
+              <li><a href="#" className="hover:text-gold transition-colors">{t("footer.yantraGallery")}</a></li>
+              <li><a href="#" className="hover:text-gold transition-colors">{t("footer.theArchive")}</a></li>
             </ul>
           </div>
 
           {/* Column 3: Protocols (Reference inspired) */}
           <div className="lg:col-span-2 space-y-8">
-            <h4 className="text-[10px] font-black tracking-[0.4em] uppercase text-gold">Protocols</h4>
+            <h4 className="text-[10px] font-black tracking-[0.4em] uppercase text-gold">{t("footer.protocols")}</h4>
             <ul className="space-y-4 text-sm text-[#fdfcf6]/40 font-serif">
-              <li><a href="#" className="hover:text-gold transition-colors">Life Decoding</a></li>
-              <li><a href="#" className="hover:text-gold transition-colors">Fire Calibration</a></li>
-              <li><a href="#" className="hover:text-gold transition-colors">Space Healing</a></li>
-              <li><a href="#" className="hover:text-gold transition-colors">Ancestral Rite</a></li>
+              <li><a href="#" className="hover:text-gold transition-colors">{t("footer.lifeDecoding")}</a></li>
+              <li><a href="#" className="hover:text-gold transition-colors">{t("footer.fireCalibration")}</a></li>
+              <li><a href="#" className="hover:text-gold transition-colors">{t("footer.spaceHealing")}</a></li>
+              <li><a href="#" className="hover:text-gold transition-colors">{t("footer.ancestralRite")}</a></li>
             </ul>
           </div>
 

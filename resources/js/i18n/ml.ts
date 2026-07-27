@@ -1,0 +1,121 @@
+import type { Messages } from "./en";
+
+export const ml: Messages = {
+  common: {
+    close: "അടയ്ക്കുക",
+    readMore: "കൂടുതൽ വായിക്കുക",
+    service: "സേവനം",
+    available: "ലഭ്യം",
+    top: "മുകളിൽ",
+  },
+  nav: {
+    archive: "ശേഖരം",
+    rituals: "വഴിപാടുകൾ",
+    devotees: "ഭക്തർ",
+    gallery: "ഗ്യാലറി",
+    journal: "ജേർണൽ",
+    media: "മീഡിയ",
+    consultation: "കൺസൾട്ടേഷൻ",
+    langEn: "English",
+    langMl: "മലയാളം",
+  },
+  hero: {
+    eyebrow: "പാരമ്പര്യ അനുധാനം",
+    titleLine1: "വൈദിക പാരമ്പര്യം.",
+    titleLine2: "ശാശ്വത നൈപുണ്യം.",
+    quote:
+      "ശുദ്ധമായ വൈദിക പാരമ്പര്യത്തിന്റെ രക്ഷകർ. മന്ത്ര ശാസ്ത്രത്തിന്റെ ഊർജ്ജശാസ്ത്രത്തിനും ഡിജിറ്റൽ യുഗത്തിനായി പൂർവ്വിക ജ്ഞാനം സംരക്ഷിക്കുന്നതിനുമായി സമർപ്പിച്ച ഒരു ജീവിതം.",
+    connect: "ആചാര്യനുമായി ബന്ധപ്പെടുക",
+    watchRitual: "വഴിപാട് കാണുക",
+    lineage: "വംശപാരമ്പര്യ",
+    lineageVal: "പാരാ പാരമ്പര്യം",
+    science: "ശാസ്ത്രം",
+    scienceVal: "മന്ത്ര ശാസ്ത്രം",
+    focus: "ശ്രദ്ധ",
+    focusVal: "വൈദിക സമന്വയം",
+  },
+  about: {
+    eyebrow: "ഗുരുവിന്റെ കഥ",
+    titleLine1: "തകർക്കപ്പെടാത്ത",
+    titleLine2: "പാരമ്പര്യത്തിന്റെ രക്ഷകൻ",
+    authority: "പാരമ്പര്യ അധികാരം",
+    authorityQuote: "പവിത്ര ജ്യാമിതിയും ആധുനിക ജീവിതവും തമ്മിലുള്ള ബന്ധം വ്യാഖ്യാനിക്കുന്നു.",
+  },
+  disciplines: {
+    eyebrow: "പവിത്ര ചട്ടക്കൂട് v4.0",
+    titleLine1: "ഞങ്ങളുടെ പവിത്ര",
+    titleLine2: "സേവനങ്ങൾ",
+    intro:
+      "ആധുനിക ആത്മീയ പുരോഗതിക്കായി രൂപകൽപ്പന ചെയ്ത പാരമ്പര്യ വൈദിക ഇടപെടലുകളും പ്രതിഷ്ഠിച്ച യന്ത്രങ്ങളും ഞങ്ങൾ നൽകുന്നു.",
+    loadError:
+      "സേവനങ്ങൾ ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല. API പ്രവർത്തിക്കുന്നുണ്ടോ, VITE_API_BASE_URL സജ്ജമാണോ എന്ന് പരിശോധിക്കുക.",
+    empty: "അഡ്മിൻ പാനലിൽ (Services) സേവനങ്ങൾ ചേർത്താൽ ഇവിടെ കാണാം.",
+    duration: "കാലാവധി",
+    from: "മുതൽ",
+    sacredServices: "പവിത്ര സേവനങ്ങൾ",
+    services: "സേവനങ്ങൾ",
+    verifiedHeritage: "സ്ഥിരീകരിച്ച പൈതൃകം",
+    realTimeCalibration: "തത്സമയ കാലിബ്രേഷൻ",
+    tantricLogic: "താന്ത്രിക തർക്കം",
+  },
+  gallery: {
+    eyebrow: "പവിത്ര യന്ത്രങ്ങൾ",
+    titleLine1: "പ്രബോധനത്തിലേക്കുള്ള",
+    titleLine2: "വഴി തേടുകയാണോ?",
+    badge: "പ്രതിഷ്ഠിച്ച ജ്യാമിതി",
+    loadError:
+      "യന്ത്രങ്ങൾ ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല. API പ്രവർത്തിക്കുന്നുണ്ടോ, VITE_API_BASE_URL സജ്ജമാണോ എന്ന് പരിശോധിക്കുക.",
+    empty: "അഡ്മിൻ പാനലിൽ (Yantras) യന്ത്രങ്ങൾ ചേർത്താൽ ഇവിടെ കാണാം.",
+    yantraActivated: "യന്ത്രം സജീവമാക്കി",
+    consecratedInstrument: "പ്രതിഷ്ഠിച്ച ഉപകരണം",
+    quote:
+      "Thanthri V R Rajesh Sharmma-യുടെ നേതൃത്വത്തിൽ, വൈദിക-താന്ത്രിക-ജ്യോതിഷ വിദഗ്ധരായ പാരമ്പര്യ നമ്പൂതിരി പുരോഹിതരുടെ കൂട്ടായ്മയിൽ ATRC എന്ന അന്താരാഷ്ട്ര ആത്മീയ സംഘടന സ്ഥാപിച്ചു.",
+    enterProtocol: "പൂർണ്ണ പ്രോട്ടോക്കോൾ തുറക്കുക",
+  },
+  journal: {
+    eyebrow: "ആർക്കൈവൽ ജേർണൽ",
+    titleLine1: "ഗവേഷണ",
+    titleLine2: "കണ്ടെത്തലുകൾ",
+    verified: "സ്ഥിരീകരിച്ച അറിവിന്റെ ശേഖരം",
+  },
+  devotees: {
+    eyebrow: "പവിത്ര പ്രതിധ്വനികൾ",
+    titleLine1: "പ്രകാശത്തിന്റെ",
+    titleLine2: "മെല്ലെപ്പല്ലികൾ",
+  },
+  media: {
+    eyebrow: "YouTube-ലെ ഉപദേശങ്ങൾ",
+    titleLine1: "Thanthri",
+    titleLine2: "ആർക്കൈവുകൾ",
+    introPrefix: "തിരഞ്ഞെടുത്ത പ്ലേലിസ്റ്റുകൾ —",
+    introSuffix: "പോപ്പ‑അപ്പിൽ കാണാൻ ചിത്രം തിരഞ്ഞെടുക്കുക.",
+    youtube: "YouTube",
+    loadError:
+      "വീഡിയോകൾ ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല. API പ്രവർത്തിക്കുന്നുണ്ടോ, VITE_API_BASE_URL സജ്ജമാണോ എന്ന് പരിശോധിക്കുക.",
+    empty: "Thanthri ചാനലിൽ നിന്നുള്ള YouTube ലിങ്കുകൾ അഡ്മിൻ പാനലിൽ (YouTube videos) ചേർക്കുക.",
+    defaultChannel: "Thanthri V R Rajesh Sharmma",
+    curatedBadge: "സൈറ്റിനായി തിരഞ്ഞെടുത്ത ഉപദേശങ്ങൾ",
+    curatedBody:
+      "ഔദ്യോഗിക ചാനലിലെ ഏറ്റവും പുതിയ സന്ദേശങ്ങളും വഴിപാടുകളും പ്രദർശിപ്പിക്കാൻ അഡ്മിൻ ഡാഷ്‌ബോർഡിൽ വീഡിയോ പട്ടിക നിലനിർത്തുന്നു.",
+    openChannel: "YouTube-ൽ ചാനൽ തുറക്കുക",
+    channelEnvHint: "ചാനൽ shortcut-ിന് VITE_THANTHRI_YOUTUBE_CHANNEL_URL സജ്ജമാക്കുക",
+    videoDialog: "YouTube വീഡിയോ",
+  },
+  footer: {
+    tagline:
+      "പുരാതന താന്ത്രിക രീതികളും ആധുനിക ആത്മീയ ഗവേഷണവും തമ്മിലുള്ള കൂടിച്ചേരൽ. ഡിജിറ്റൽ യുഗത്തിനായി പുനർനിർമ്മിച്ച ആയിരം വർഷത്തെ പാരമ്പര്യം.",
+    nexus: "ബന്ധുക്കൾ",
+    protocols: "പ്രോട്ടോക്കോളുകൾ",
+    theMaster: "ഗുരു",
+    sacredRituals: "പവിത്ര വഴിപാടുകൾ",
+    yantraGallery: "യന്ത്ര ഗ്യാലറി",
+    theArchive: "ശേഖരം",
+    lifeDecoding: "ജീവിത വ്യാഖ്യാനം",
+    fireCalibration: "അഗ്നി കാലിബ്രേഷൻ",
+    spaceHealing: "സ്ഥലത്തിന്റെ ശുദ്ധി",
+    ancestralRite: "പൂർവ്വിക ചടങ്ങ്",
+  },
+  backToTop: {
+    label: "മുകളിലേക്ക്",
+  },
+};

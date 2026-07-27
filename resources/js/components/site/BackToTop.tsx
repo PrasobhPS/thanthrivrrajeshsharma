@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { ArrowUp } from "lucide-react";
+import { useLocale } from "@/i18n/LocaleProvider";
 
 export function BackToTop() {
+  const { t } = useLocale();
   const [show, setShow] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
 
@@ -32,7 +34,7 @@ export function BackToTop() {
       className={`fixed bottom-32 right-10 z-50 flex items-center justify-center transition-all duration-700 ${
         show ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"
       } group`}
-      aria-label="Back to Top"
+      aria-label={t("backToTop.label")}
     >
       {/* Structural HUD Frame */}
       <div className="relative h-16 w-16 flex items-center justify-center">
@@ -72,7 +74,7 @@ export function BackToTop() {
         {/* Floating Technical Tags */}
         <div className="absolute -top-1 -right-8 opacity-0 group-hover:opacity-100 transition-all duration-500 -translate-x-4 group-hover:translate-x-0 pointer-events-none">
           <div className="text-[8px] font-black tracking-[0.3em] uppercase text-gold/60 font-heading bg-black/80 backdrop-blur-sm border border-gold/20 px-2 py-1 rounded">
-            Top
+            {t("common.top")}
           </div>
         </div>
       </div>

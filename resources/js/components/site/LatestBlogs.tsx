@@ -3,6 +3,7 @@ import { ArrowRight, MoveRight, Clock, ShieldCheck, Zap, Minus } from "lucide-re
 import b1 from "@/assets/ritual-1.jpg";
 import b2 from "@/assets/ritual-2.jpg";
 import b3 from "@/assets/ritual-3.jpg";
+import { useLocale } from "@/i18n/LocaleProvider";
 
 const blogPosts = [
   {
@@ -48,6 +49,7 @@ const blogPosts = [
 ];
 
 export function LatestBlogs() {
+  const { t } = useLocale();
   const [active, setActive] = useState(0);
 
   return (
@@ -67,16 +69,16 @@ export function LatestBlogs() {
           <div className="max-w-2xl">
             <div className="flex items-center gap-4 mb-6">
               <div className="h-px w-16 bg-gold" />
-              <span className="text-[10px] font-black tracking-[0.5em] uppercase text-gold">The Archival Journal</span>
+              <span className="text-[10px] font-black tracking-[0.5em] uppercase text-gold">{t("journal.eyebrow")}</span>
             </div>
             <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl leading-none tracking-tighter">
-              Research <span className="text-gold">Findings</span>
+              {t("journal.titleLine1")} <span className="text-gold">{t("journal.titleLine2")}</span>
             </h2>
           </div>
           <div className="flex flex-col items-start gap-4 lg:pb-4 animate-fade-up">
             <div className="flex items-center gap-3 px-6 py-2 bg-[#1a1a1a]/5 border border-[#1a1a1a]/10 rounded-full">
               <ShieldCheck size={16} className="text-gold" />
-              <span className="text-[9px] font-black tracking-widest uppercase">Verified Knowledge Base</span>
+              <span className="text-[9px] font-black tracking-widest uppercase">{t("journal.verified")}</span>
             </div>
           </div>
         </div>

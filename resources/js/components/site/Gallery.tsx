@@ -2,8 +2,10 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowUpRight, Sparkles, MoveRight, ShieldCheck, Zap } from "lucide-react";
 import { fetchYantras, type YantraPayload } from "@/lib/site-api";
+import { useLocale } from "@/i18n/LocaleProvider";
 
 export function Gallery() {
+  const { t } = useLocale();
   const [hovered, setHovered] = useState<number | null>(null);
 
   const { data: yantras, isLoading, isError } = useQuery({
@@ -36,19 +38,19 @@ export function Gallery() {
             <div className="flex items-center gap-4 mb-6">
               <div className="h-px w-16 bg-gold" />
               <span className="text-[10px] font-black tracking-[0.5em] uppercase text-gold">
-                Sacred Yantras
+                {t("gallery.eyebrow")}
               </span>
             </div>
             <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl leading-[1.1] tracking-tighter">
-              Are You In Search Of Path Towards <br />
-              <span className="text-gold">Enlightenment?</span>
+              {t("gallery.titleLine1")} <br />
+              <span className="text-gold">{t("gallery.titleLine2")}</span>
             </h2>
           </div>
           <div className="flex flex-col items-start gap-6 lg:pb-4 animate-fade-up">
             <div className="flex items-center gap-3 bg-gold/10 border border-gold/20 px-6 py-2 rounded-full">
               <Sparkles size={16} className="text-gold animate-pulse" />
               <span className="text-[9px] font-black tracking-[0.4em] uppercase text-gold">
-                Consecrated Geometry
+                {t("gallery.badge")}
               </span>
             </div>
           </div>
@@ -56,9 +58,7 @@ export function Gallery() {
 
         {(isError || (!isLoading && (!yantras || yantras.length === 0))) && (
           <p className="mb-8 text-sm text-white/50 font-serif max-w-xl">
-            {isError
-              ? "We could not load the yantras. Check that the API is running and VITE_API_BASE_URL is set."
-              : "Yantras will appear here once they are added in the admin panel (Yantras)."}
+            {isError ? t("gallery.loadError") : t("gallery.empty")}
           </p>
         )}
 
@@ -112,7 +112,7 @@ export function Gallery() {
                         <div className="flex items-center gap-3">
                           <Zap size={16} className="text-gold animate-pulse" />
                           <span className="text-[10px] font-black tracking-widest text-gold uppercase">
-                            Yantra Activated
+                            {t("gallery.yantraActivated")}
                           </span>
                         </div>
                       </div>
@@ -136,7 +136,7 @@ export function Gallery() {
                       <div className="flex items-center gap-4 border-t border-gold/20 pt-6">
                         <ShieldCheck size={18} className="text-gold" />
                         <span className="text-[10px] font-black tracking-[0.5em] uppercase text-gold/60 underline decoration-gold/20 underline-offset-8">
-                          Consecrated Instrument
+                          {t("gallery.consecratedInstrument")}
                         </span>
                       </div>
                     </div>
@@ -156,15 +156,14 @@ export function Gallery() {
         <div className="mt-10 flex flex-col lg:flex-row items-center justify-between gap-12 border-t border-white/5 pt-12 animate-fade-up">
           <div className="max-w-md">
             <p className="text-sm text-white/40 leading-relaxed font-serif">
-              "ATRC is an international spiritual organization founded by Thanthri V R Rajesh Sharmma along with a group of
-              traditional Brahmin Nampoothiri priests, who are well versed in vedic, tantrik and astrological knowledge."
+              "{t("gallery.quote")}"
             </p>
           </div>
           <button
             type="button"
             className="group relative bg-gold text-[#020617] px-14 py-6 rounded-full font-black text-xs tracking-widest uppercase hover:bg-white transition-all shadow-2xl flex items-center gap-6"
           >
-            Enter The Full Protocol <MoveRight size={18} className="group-hover:translate-x-2 transition-transform" />
+            {t("gallery.enterProtocol")} <MoveRight size={18} className="group-hover:translate-x-2 transition-transform" />
           </button>
         </div>
       </div>

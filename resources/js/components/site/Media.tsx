@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Play, Sparkles, Radio, ShieldCheck, MoveRight, MoreVertical, Zap } from "lucide-react";
+import { Play, Radio, ShieldCheck, MoveRight, MoreVertical, Zap } from "lucide-react";
 import { fetchYoutubeVideos } from "@/lib/site-api";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { YoutubeLightbox } from "@/components/site/YoutubeLightbox";
+import { useLocale } from "@/i18n/LocaleProvider";
 
 const channelUrl = import.meta.env.VITE_THANTHRI_YOUTUBE_CHANNEL_URL as string | undefined;
 
 export function Media() {
+  const { t } = useLocale();
   const [open, setOpen] = useState(false);
   const [activeYoutubeId, setActiveYoutubeId] = useState<string | null>(null);
   const [activeTitle, setActiveTitle] = useState("");
@@ -23,36 +25,24 @@ export function Media() {
     setOpen(true);
   };
 
+  const closeVideo = () => {
+    setOpen(false);
+    setActiveYoutubeId(null);
+    setActiveTitle("");
+  };
+
   const rowCount = isLoading ? 8 : Math.max(videos?.length ?? 0, 0);
   const placeholders = Array.from({ length: rowCount }, (_, i) => i);
 
   return (
     <>
-      <Dialog
+      <YoutubeLightbox
         open={open}
-        onOpenChange={(next) => {
-          setOpen(next);
-          if (!next) {
-            setActiveYoutubeId(null);
-            setActiveTitle("");
-          }
-        }}
-      >
-        <DialogContent className="max-w-[min(100vw-1.5rem,56rem)] gap-0 overflow-hidden border-none bg-black p-0 text-white shadow-2xl sm:rounded-xl [&_button]:text-white">
-          <DialogTitle className="sr-only">{activeTitle || "YouTube video"}</DialogTitle>
-          {activeYoutubeId ? (
-            <div className="aspect-video w-full bg-black">
-              <iframe
-                title={activeTitle}
-                src={`https://www.youtube.com/embed/${activeYoutubeId}?autoplay=1&rel=0`}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-                className="h-full w-full border-0"
-              />
-            </div>
-          ) : null}
-        </DialogContent>
-      </Dialog>
+        youtubeId={activeYoutubeId}
+        title={activeTitle || t("media.videoDialog")}
+        onClose={closeVideo}
+        closeLabel={t("common.close")}
+      />
 
       <section id="media" className="relative py-16 bg-[#fdfcf6] text-[#1a1a1a] overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-[0.02] pointer-events-none">
@@ -64,27 +54,25 @@ export function Media() {
             <div className="max-w-2xl">
               <div className="flex items-center gap-4 mb-4">
                 <div className="h-px w-16 bg-gold" />
-                <span className="text-[10px] font-black tracking-[0.5em] uppercase text-gold">Teachings on YouTube</span>
+                <span className="text-[10px] font-black tracking-[0.5em] uppercase text-gold">{t("media.eyebrow")}</span>
               </div>
               <h2 className="font-serif text-5xl sm:text-7xl leading-none tracking-tighter">
-                Thanthri <span className="text-gold">Archives</span>
+                {t("media.titleLine1")} <span className="text-gold">{t("media.titleLine2")}</span>
               </h2>
               <p className="mt-4 text-xs text-[#1a1a1a]/50 font-serif leading-relaxed max-w-lg">
-                Curated playlists from{" "}
-                <span className="text-[#1a1a1a]/70">Thanthri V R Rajesh Sharmma</span>. Select a thumbnail to watch in place.
+                {t("media.introPrefix")}{" "}
+                <span className="text-[#1a1a1a]/70">{t("media.defaultChannel")}</span>. {t("media.introSuffix")}
               </p>
             </div>
             <div className="flex items-center gap-4 px-6 py-3 bg-[#1a1a1a]/5 border border-[#1a1a1a]/10 rounded-full animate-pulse">
               <Radio size={16} className="text-red-600" />
-              <span className="text-[10px] font-black tracking-widest uppercase text-[#1a1a1a]/60">YouTube</span>
+              <span className="text-[10px] font-black tracking-widest uppercase text-[#1a1a1a]/60">{t("media.youtube")}</span>
             </div>
           </div>
 
           {(isError || (!isLoading && (!videos || videos.length === 0))) && (
             <p className="mb-8 text-sm text-[#1a1a1a]/50 font-serif max-w-xl">
-              {isError
-                ? "We could not load videos. Check that the API is running and VITE_API_BASE_URL is set."
-                : "Add YouTube links from the Thanthri channel in the admin panel (YouTube videos)."}
+              {isError ? t("media.loadError") : t("media.empty")}
             </p>
           )}
 
@@ -149,7 +137,7 @@ export function Media() {
                         </div>
                         <div className="mt-1 flex items-center gap-2">
                           <span className="text-[9px] font-black tracking-widest text-[#1a1a1a]/40 uppercase line-clamp-1">
-                            {v.channel_label?.trim() || "Thanthri V R Rajesh Sharmma"}
+                            {v.channel_label?.trim() || t("media.defaultChannel")}
                           </span>
                           <ShieldCheck size={10} className="text-gold shrink-0" />
                         </div>
@@ -169,13 +157,10 @@ export function Media() {
               <div className="flex items-center gap-3 mb-4 text-gold">
                 <ShieldCheck size={18} />
                 <span className="text-[9px] font-black tracking-widest uppercase text-gold/60">
-                  Teachings curated for the site
+                  {t("media.curatedBadge")}
                 </span>
               </div>
-              <p className="text-xs text-[#1a1a1a]/40 leading-relaxed font-serif">
-                Video list is maintained in the admin dashboard so you can feature the latest messages and rituals from the
-                official channel.
-              </p>
+              <p className="text-xs text-[#1a1a1a]/40 leading-relaxed font-serif">{t("media.curatedBody")}</p>
             </div>
             {channelUrl ? (
               <a
@@ -184,11 +169,11 @@ export function Media() {
                 rel="noopener noreferrer"
                 className="group relative bg-[#1a1a1a] text-[#fdfcf6] px-12 py-5 rounded-full font-black text-[10px] tracking-widest uppercase hover:bg-gold hover:text-[#1a1a1a] transition-all shadow-2xl flex items-center gap-6"
               >
-                Open channel on YouTube <MoveRight size={18} className="group-hover:translate-x-2 transition-transform" />
+                {t("media.openChannel")} <MoveRight size={18} className="group-hover:translate-x-2 transition-transform" />
               </a>
             ) : (
               <p className="text-[10px] font-black tracking-widest uppercase text-[#1a1a1a]/30">
-                Set VITE_THANTHRI_YOUTUBE_CHANNEL_URL for a channel shortcut
+                {t("media.channelEnvHint")}
               </p>
             )}
           </div>

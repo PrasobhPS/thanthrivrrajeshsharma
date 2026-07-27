@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowRight, Quote, Sparkles, MapPin } from "lucide-react";
 import r1 from "@/assets/ritual-1.jpg";
 import r2 from "@/assets/ritual-2.jpg";
 import r3 from "@/assets/ritual-3.jpg";
+import { useLocale } from "@/i18n/LocaleProvider";
 
 const slides = [
   {
@@ -35,12 +36,13 @@ const slides = [
 ];
 
 export function Testimonials() {
+  const { t } = useLocale();
   const [active, setActive] = useState(0);
 
   const next = () => setActive((prev) => (prev + 1) % slides.length);
   const prev = () => setActive((prev) => (prev - 1 + slides.length) % slides.length);
 
-  const t = slides[active];
+  const slide = slides[active];
 
   return (
     <section id="devotees" className="relative py-10 sm:py-12 bg-[#fdfcf6] text-[#1a1a1a] overflow-hidden">
@@ -56,10 +58,10 @@ export function Testimonials() {
         <div className="max-w-4xl mx-auto text-center mb-6 animate-mask-reveal">
           <div className="inline-flex items-center gap-3 mb-4 bg-gold/5 border border-gold/20 px-6 py-2 rounded-full">
             <Sparkles size={14} className="text-gold animate-pulse" />
-            <span className="text-[10px] font-black tracking-[0.5em] uppercase text-gold">Sacred Resonances</span>
+            <span className="text-[10px] font-black tracking-[0.5em] uppercase text-gold">{t("devotees.eyebrow")}</span>
           </div>
           <h2 className="font-serif text-4xl sm:text-6xl leading-none tracking-tighter">
-            Whispers of <span className="text-gold">Light</span>
+            {t("devotees.titleLine1")} <span className="text-gold">{t("devotees.titleLine2")}</span>
           </h2>
         </div>
 
@@ -74,8 +76,8 @@ export function Testimonials() {
               
               <div className="relative h-full w-full rounded-[40%_60%_70%_30%_/_40%_50%_60%_50%] overflow-hidden border border-gold/30 shadow-[0_0_60px_rgba(245,130,32,0.2)] transition-all duration-1000 animate-blob">
                 <img 
-                  key={t.img}
-                  src={t.img} 
+                  key={slide.img}
+                  src={slide.img} 
                   alt="" 
                   className="w-full h-full object-cover animate-mask-reveal"
                 />
@@ -85,7 +87,7 @@ export function Testimonials() {
               {/* Floating ID Indicator */}
               <div className="absolute -bottom-6 -right-6 h-24 w-24 bg-[#1a1a1a] text-white rounded-full flex flex-col items-center justify-center shadow-2xl">
                 <span className="text-[9px] font-black tracking-widest uppercase text-gold/40">Portal</span>
-                <span className="font-serif text-3xl font-bold">{t.id}</span>
+                <span className="font-serif text-3xl font-bold">{slide.id}</span>
               </div>
             </div>
           </div>
@@ -95,19 +97,19 @@ export function Testimonials() {
             <div key={active} className="space-y-8 animate-fade-up">
               <div className="flex items-center gap-4">
                 <Quote className="text-gold" size={24} />
-                <div className="text-[10px] font-black tracking-[0.4em] uppercase text-gold/60">{t.tag} Protocol</div>
+                <div className="text-[10px] font-black tracking-[0.4em] uppercase text-gold/60">{slide.tag} Protocol</div>
               </div>
               
               <p className="font-serif text-xl sm:text-3xl leading-[1.2] tracking-tight text-[#1a1a1a]">
-                "{t.quote}"
+                "{slide.quote}"
               </p>
 
               <div className="flex items-center justify-between pt-8 border-t border-gold/10">
                 <div className="space-y-1">
-                  <h4 className="font-serif text-2xl font-bold">{t.name}</h4>
+                  <h4 className="font-serif text-2xl font-bold">{slide.name}</h4>
                   <div className="flex items-center gap-3 text-[10px] font-black tracking-widest text-gold/60 uppercase">
                     <MapPin size={12} />
-                    {t.city} · {t.role}
+                    {slide.city} · {slide.role}
                   </div>
                 </div>
               </div>

@@ -1,15 +1,16 @@
 import { ArrowRight, Zap, Activity, Microscope, ScrollText } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchServices, type ServicePayload } from "@/lib/site-api";
+import { useLocale } from "@/i18n/LocaleProvider";
 
 const serviceIcons = [Microscope, Activity, ScrollText];
 
-function formatRate(rate: string | number): string {
+function formatRate(rate: string | number, locale: "en" | "ml"): string {
   const value = typeof rate === "string" ? Number(rate) : rate;
   if (!Number.isFinite(value) || value <= 0) {
     return "";
   }
-  return new Intl.NumberFormat("en-IN", {
+  return new Intl.NumberFormat(locale === "ml" ? "ml-IN" : "en-IN", {
     style: "currency",
     currency: "INR",
     maximumFractionDigits: 0,
@@ -17,6 +18,7 @@ function formatRate(rate: string | number): string {
 }
 
 export function Disciplines() {
+  const { t, locale } = useLocale();
   const { data: services, isLoading, isError } = useQuery({
     queryKey: ["services"],
     queryFn: fetchServices,
@@ -26,7 +28,7 @@ export function Disciplines() {
   const list: ServicePayload[] = !isError && services ? services : [];
 
   return (
-    <section id="disciplines" className="relative py-20 sm:py-24 bg-[#020617] text-[#fdfcf6] overflow-hidden">
+    <section id="services" className="relative py-20 sm:py-24 bg-[#020617] text-[#fdfcf6] overflow-hidden">
       <div className="absolute inset-0 z-0 pointer-events-none opacity-20">
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
         <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
@@ -40,25 +42,23 @@ export function Disciplines() {
           <div className="lg:col-span-8 space-y-8">
             <div className="flex items-center gap-4 animate-fade-in">
               <span className="h-2 w-2 rounded-full bg-gold animate-pulse" />
-              <span className="text-[10px] font-black tracking-[0.6em] uppercase text-gold">Sacred Framework v4.0</span>
+              <span className="text-[10px] font-black tracking-[0.6em] uppercase text-gold">{t("disciplines.eyebrow")}</span>
             </div>
             <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl leading-[1.1] tracking-tighter animate-mask-reveal">
-              Our Sacred <br />
-              <span className="text-gold">Services</span>
+              {t("disciplines.titleLine1")} <br />
+              <span className="text-gold">{t("disciplines.titleLine2")}</span>
             </h2>
           </div>
           <div className="lg:col-span-4 border-l border-white/10 pl-12 py-4 animate-fade-up">
             <p className="text-sm text-[#fdfcf6]/40 leading-relaxed font-serif max-w-xs">
-              "We provide traditional Vedic interventions and consecrated instruments designed for modern spiritual breakthroughs."
+              "{t("disciplines.intro")}"
             </p>
           </div>
         </div>
 
         {(isError || (!isLoading && list.length === 0)) && (
           <p className="mb-8 text-sm text-white/50 font-serif max-w-xl">
-            {isError
-              ? "We could not load the services. Check that the API is running and VITE_API_BASE_URL is set."
-              : "Services will appear here once they are added in the admin panel (Services)."}
+            {isError ? t("disciplines.loadError") : t("disciplines.empty")}
           </p>
         )}
 
@@ -76,10 +76,10 @@ export function Disciplines() {
             list.map((item, index) => {
               const Icon = serviceIcons[index % serviceIcons.length];
               const details = item.short_description?.trim() || item.description?.trim() || "";
-              const rateLabel = formatRate(item.rate);
+              const rateLabel = formatRate(item.rate, locale);
               const metrics = [
-                item.duration ? `Duration: ${item.duration}` : null,
-                rateLabel ? `From ${rateLabel}` : null,
+                item.duration ? `${t("disciplines.duration")}: ${item.duration}` : null,
+                rateLabel ? `${t("disciplines.from")} ${rateLabel}` : null,
               ].filter(Boolean) as string[];
 
               return (
@@ -98,7 +98,7 @@ export function Disciplines() {
                       <div className="text-[9px] font-black tracking-[0.4em] text-gold uppercase">
                         SC-{String(index + 1).padStart(2, "0")}
                       </div>
-                      <h4 className="text-[10px] font-bold tracking-widest text-white/30 uppercase">Service</h4>
+                      <h4 className="text-[10px] font-bold tracking-widest text-white/30 uppercase">{t("common.service")}</h4>
                     </div>
                     <div className="h-16 w-16 rounded-2xl border border-white/5 flex items-center justify-center text-gold group-hover:scale-110 group-hover:bg-gold group-hover:text-black transition-all duration-500 overflow-hidden">
                       {item.image_url ? (
@@ -141,7 +141,7 @@ export function Disciplines() {
                       type="button"
                       className="flex items-center gap-6 group/btn text-[10px] font-black tracking-widest uppercase text-gold"
                     >
-                      Read More
+                      {t("common.readMore")}
                       <div className="h-12 w-12 rounded-full border border-gold/20 flex items-center justify-center group-hover/btn:bg-gold group-hover/btn:text-black transition-all">
                         <ArrowRight size={18} className="group-hover/btn:translate-x-1 transition-transform" />
                       </div>
@@ -169,15 +169,15 @@ export function Disciplines() {
               ))}
             </div>
             <div className="text-[10px] font-bold tracking-widest text-white/30 uppercase">
-              {list.length > 0 ? `${list.length} Sacred Services` : "Services"}{" "}
-              <span className="text-gold">Available</span>
+              {list.length > 0 ? `${list.length} ${t("disciplines.sacredServices")}` : t("disciplines.services")}{" "}
+              <span className="text-gold">{t("common.available")}</span>
             </div>
           </div>
 
           <div className="flex gap-12 text-[9px] font-black tracking-[0.3em] text-white/10 uppercase">
-            <span>Verified Heritage</span>
-            <span>Real-time Calibration</span>
-            <span>Tantric Logic</span>
+            <span>{t("disciplines.verifiedHeritage")}</span>
+            <span>{t("disciplines.realTimeCalibration")}</span>
+            <span>{t("disciplines.tantricLogic")}</span>
           </div>
         </div>
       </div>

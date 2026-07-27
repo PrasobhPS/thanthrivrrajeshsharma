@@ -1,7 +1,9 @@
 import { MoveRight, ShieldCheck, History, GraduationCap, Flame, Star } from "lucide-react";
 import masterImg from "@/assets/guru-portrait.jpg";
+import { useLocale } from "@/i18n/LocaleProvider";
 
 export function About() {
+  const { t } = useLocale();
   return (
     <section id="about" className="relative py-16 sm:py-20 bg-[#fdfcf6] text-[#1a1a1a] overflow-hidden">
       {/* Advanced Ambience: Architectural Depth */}
@@ -14,20 +16,20 @@ export function About() {
           <div className="lg:col-span-8">
             <div className="flex items-center gap-4 mb-6">
               <div className="w-12 h-px bg-gold" />
-              <span className="text-[10px] font-black tracking-[0.6em] uppercase text-gold font-heading">The Master Narrative</span>
+              <span className="text-[10px] font-black tracking-[0.6em] uppercase text-gold font-heading">{t("about.eyebrow")}</span>
             </div>
             <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl leading-none tracking-tighter">
-              The Guardian of <br />
-              <span className="text-gold">Unbroken Tradition</span>
+              {t("about.titleLine1")} <br />
+              <span className="text-gold">{t("about.titleLine2")}</span>
             </h2>
           </div>
           <div className="lg:col-span-4 lg:pb-4 border-l border-gold/20 lg:pl-12 animate-fade-up">
             <div className="flex items-center gap-3 mb-4 text-gold">
               <Star size={16} fill="currentColor" />
-              <span className="text-[9px] font-black tracking-widest uppercase font-heading">Traditional Authority</span>
+              <span className="text-[9px] font-black tracking-widest uppercase font-heading">{t("about.authority")}</span>
             </div>
             <p className="text-sm text-[#1a1a1a]/40 leading-relaxed font-serif">
-              "Decoding the intersection of sacred geometry and modern existence."
+              "{t("about.authorityQuote")}"
             </p>
           </div>
         </div>

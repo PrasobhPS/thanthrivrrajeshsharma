@@ -1,4 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { LocaleProvider } from "@/i18n/LocaleProvider";
 import {
   Outlet,
   Link,
@@ -117,7 +118,9 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Outlet />
+      <LocaleProvider>
+        <Outlet />
+      </LocaleProvider>
     </QueryClientProvider>
   );
 }

@@ -1,0 +1,121 @@
+export const en = {
+  common: {
+    close: "Close",
+    readMore: "Read More",
+    service: "Service",
+    available: "Available",
+    top: "Top",
+  },
+  nav: {
+    archive: "The Archive",
+    rituals: "Rituals",
+    devotees: "Devotees",
+    gallery: "Gallery",
+    journal: "Journal",
+    media: "Media",
+    consultation: "Consultation",
+    langEn: "English",
+    langMl: "Malayalam",
+  },
+  hero: {
+    eyebrow: "Ancestral Transmission",
+    titleLine1: "Vedic Lineage.",
+    titleLine2: "Eternal Mastery.",
+    quote:
+      "Guardians of the pristine Vedic tradition. A life dedicated to the vibrational science of Mantra Shastra and the preservation of ancestral wisdom for the digital age.",
+    connect: "Connect with Aacharya",
+    watchRitual: "Watch Ritual",
+    lineage: "Lineage",
+    lineageVal: "Para-Parampara",
+    science: "Science",
+    scienceVal: "Mantra Shastra",
+    focus: "Focus",
+    focusVal: "Vedic Sync",
+  },
+  about: {
+    eyebrow: "The Master Narrative",
+    titleLine1: "The Guardian of",
+    titleLine2: "Unbroken Tradition",
+    authority: "Traditional Authority",
+    authorityQuote: "Decoding the intersection of sacred geometry and modern existence.",
+  },
+  disciplines: {
+    eyebrow: "Sacred Framework v4.0",
+    titleLine1: "Our Sacred",
+    titleLine2: "Services",
+    intro:
+      "We provide traditional Vedic interventions and consecrated instruments designed for modern spiritual breakthroughs.",
+    loadError:
+      "We could not load the services. Check that the API is running and VITE_API_BASE_URL is set.",
+    empty: "Services will appear here once they are added in the admin panel (Services).",
+    duration: "Duration",
+    from: "From",
+    sacredServices: "Sacred Services",
+    services: "Services",
+    verifiedHeritage: "Verified Heritage",
+    realTimeCalibration: "Real-time Calibration",
+    tantricLogic: "Tantric Logic",
+  },
+  gallery: {
+    eyebrow: "Sacred Yantras",
+    titleLine1: "Are You In Search Of Path Towards",
+    titleLine2: "Enlightenment?",
+    badge: "Consecrated Geometry",
+    loadError:
+      "We could not load the yantras. Check that the API is running and VITE_API_BASE_URL is set.",
+    empty: "Yantras will appear here once they are added in the admin panel (Yantras).",
+    yantraActivated: "Yantra Activated",
+    consecratedInstrument: "Consecrated Instrument",
+    quote:
+      "ATRC is an international spiritual organization founded by Thanthri V R Rajesh Sharmma along with a group of traditional Brahmin Nampoothiri priests, who are well versed in vedic, tantrik and astrological knowledge.",
+    enterProtocol: "Enter The Full Protocol",
+  },
+  journal: {
+    eyebrow: "The Archival Journal",
+    titleLine1: "Research",
+    titleLine2: "Findings",
+    verified: "Verified Knowledge Base",
+  },
+  devotees: {
+    eyebrow: "Sacred Resonances",
+    titleLine1: "Whispers of",
+    titleLine2: "Light",
+  },
+  media: {
+    eyebrow: "Teachings on YouTube",
+    titleLine1: "Thanthri",
+    titleLine2: "Archives",
+    introPrefix: "Curated playlists from",
+    introSuffix: "Select a thumbnail to watch in a popup.",
+    youtube: "YouTube",
+    loadError:
+      "We could not load videos. Check that the API is running and VITE_API_BASE_URL is set.",
+    empty: "Add YouTube links from the Thanthri channel in the admin panel (YouTube videos).",
+    defaultChannel: "Thanthri V R Rajesh Sharmma",
+    curatedBadge: "Teachings curated for the site",
+    curatedBody:
+      "Video list is maintained in the admin dashboard so you can feature the latest messages and rituals from the official channel.",
+    openChannel: "Open channel on YouTube",
+    channelEnvHint: "Set VITE_THANTHRI_YOUTUBE_CHANNEL_URL for a channel shortcut",
+    videoDialog: "YouTube video",
+  },
+  footer: {
+    tagline:
+      "The intersection of ancient Tantric algorithms and modern spiritual research. A 1,000-year lineage re-engineered for the digital age.",
+    nexus: "Nexus",
+    protocols: "Protocols",
+    theMaster: "The Master",
+    sacredRituals: "Sacred Rituals",
+    yantraGallery: "Yantra Gallery",
+    theArchive: "The Archive",
+    lifeDecoding: "Life Decoding",
+    fireCalibration: "Fire Calibration",
+    spaceHealing: "Space Healing",
+    ancestralRite: "Ancestral Rite",
+  },
+  backToTop: {
+    label: "Back to Top",
+  },
+} as const;
+
+export type Messages = typeof en;
