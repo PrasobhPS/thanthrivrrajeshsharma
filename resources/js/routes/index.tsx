@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 import { Nav } from "@/components/site/Nav";
+import { ConsultationEnquiryModal } from "@/components/site/ConsultationEnquiryModal";
 import { Hero } from "@/components/site/Hero";
 import { About } from "@/components/site/About";
 import { Disciplines } from "@/components/site/Disciplines";
@@ -31,9 +33,12 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const [consultationOpen, setConsultationOpen] = useState(false);
+
   return (
     <main className="relative bg-[#020617] text-white">
-      <Nav />
+      <ConsultationEnquiryModal open={consultationOpen} onOpenChange={setConsultationOpen} />
+      <Nav onConsultationClick={() => setConsultationOpen(true)} />
       <Hero />
       <About />
       <Disciplines />

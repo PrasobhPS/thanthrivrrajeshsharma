@@ -11,7 +11,11 @@ const linkKeys = [
   { labelKey: "nav.media", href: "#media" },
 ] as const;
 
-export function Nav() {
+type NavProps = {
+  onConsultationClick?: () => void;
+};
+
+export function Nav({ onConsultationClick }: NavProps) {
   const { locale, setLocale, t } = useLocale();
   const [scrolled, setScrolled] = useState(false);
 
@@ -92,13 +96,14 @@ export function Nav() {
               </button>
             </div>
 
-            <a
-              href="#consult"
-              className="hidden sm:inline-flex items-center gap-2 rounded-full bg-gradient-gold px-5 py-2.5 text-[10px] font-heading tracking-widest uppercase text-primary-foreground hover:opacity-90 transition shadow-[0_8px_30px_-8px_oklch(0.82_0.16_82/0.6)]"
+            <button
+              type="button"
+              onClick={onConsultationClick}
+              className="inline-flex items-center gap-2 rounded-full bg-gradient-gold px-4 py-2 sm:px-5 sm:py-2.5 text-[9px] sm:text-[10px] font-heading tracking-widest uppercase text-primary-foreground hover:opacity-90 transition shadow-[0_8px_30px_-8px_oklch(0.82_0.16_82/0.6)]"
             >
               {t("nav.consultation")}
               <span aria-hidden>→</span>
-            </a>
+            </button>
           </div>
         </div>
       </div>

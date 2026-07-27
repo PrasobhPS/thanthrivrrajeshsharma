@@ -116,6 +116,29 @@ export const en = {
   backToTop: {
     label: "Back to Top",
   },
+  consultation: {
+    title: "Consultation enquiry",
+    subtitle: "Share your details and we will contact you about rituals, guidance, or sacred services.",
+    name: "Full name",
+    namePlaceholder: "Your name",
+    phone: "Phone / WhatsApp",
+    phonePlaceholder: "Mobile number with country code",
+    email: "Email (optional)",
+    emailPlaceholder: "you@example.com",
+    service: "Service or ritual",
+    servicePlaceholder: "Select from our offerings",
+    serviceOther: "Other — describe below",
+    otherService: "Requested service",
+    otherServicePlaceholder: "e.g. Private consultation, specific puja",
+    preferredDate: "Preferred date (optional)",
+    message: "Message (optional)",
+    messagePlaceholder: "Timing, location, or any questions…",
+    submit: "Send enquiry",
+    submitting: "Sending…",
+    success: "Thank you. Your enquiry has been received — we will contact you soon.",
+    errorGeneric: "Something went wrong. Please try again.",
+    requiredHint: "Fields marked with * are required.",
+  },
 } as const;
 
 export type Messages = typeof en;

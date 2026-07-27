@@ -79,3 +79,64 @@ export function fetchServices(): Promise<ServicePayload[]> {
 export function fetchYoutubeVideos(): Promise<YoutubeVideoPayload[]> {
   return readList<YoutubeVideoPayload>("youtube-videos");
 }
+
+export type SubmitInquiryPayload = {
+  name: string;
+  phone: string;
+  email?: string;
+  service_id?: number;
+  requested_service?: string;
+  requested_date?: string;
+  message?: string;
+};
+
+type ApiWriteResponse<T> = {
+  data: T;
+  error: unknown;
+  meta: unknown;
+};
+
+export type SubmitInquiryResult = {
+  id: number;
+  status: string;
+  message: string;
+};
+
+export class InquirySubmitError extends Error {
+  fieldErrors: Record<string, string[]>;
+
+  constructor(message: string, fieldErrors: Record<string, string[]>) {
+    super(message);
+    this.name = "InquirySubmitError";
+    this.fieldErrors = fieldErrors;
+  }
+}
+
+export async function submitInquiry(payload: SubmitInquiryPayload): Promise<SubmitInquiryResult> {
+  const res = await fetch(apiUrl("inquiries"), {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+
+  const body = (await res.json()) as ApiWriteResponse<SubmitInquiryResult> & {
+    message?: string;
+    errors?: Record<string, string[]>;
+  };
+
+  if (!res.ok) {
+    if (res.status === 422 && body.errors) {
+      throw new InquirySubmitError(body.message ?? "Validation failed.", body.errors);
+    }
+    throw new Error(body.message ?? `Request failed (${res.status})`);
+  }
+
+  if (!body.data) {
+    throw new Error("Unexpected response from server.");
+  }
+
+  return body.data;
+}
