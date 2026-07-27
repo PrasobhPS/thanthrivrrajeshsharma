@@ -1,27 +1,27 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowUpRight, Sparkles, MoveRight, ShieldCheck, Zap } from "lucide-react";
-import { fetchGalleryPhotos, type GalleryPhotoPayload } from "@/lib/site-api";
+import { fetchYantras, type YantraPayload } from "@/lib/site-api";
 
 export function Gallery() {
   const [hovered, setHovered] = useState<number | null>(null);
 
-  const { data: photos, isLoading, isError } = useQuery({
-    queryKey: ["gallery-photos"],
-    queryFn: fetchGalleryPhotos,
+  const { data: yantras, isLoading, isError } = useQuery({
+    queryKey: ["yantras"],
+    queryFn: fetchYantras,
     staleTime: 60_000,
   });
 
   type Panel =
-    | { kind: "photo"; photo: GalleryPhotoPayload; displayIndex: number }
+    | { kind: "yantra"; yantra: YantraPayload; displayIndex: number }
     | { kind: "skeleton"; displayIndex: number };
 
   let panels: Panel[] = [];
 
   if (isLoading) {
     panels = Array.from({ length: 6 }, (_, displayIndex) => ({ kind: "skeleton", displayIndex }));
-  } else if (!isError && photos && photos.length > 0) {
-    panels = photos.map((photo, displayIndex) => ({ kind: "photo", photo, displayIndex }));
+  } else if (!isError && yantras && yantras.length > 0) {
+    panels = yantras.map((yantra, displayIndex) => ({ kind: "yantra", yantra, displayIndex }));
   }
 
   return (
@@ -36,7 +36,7 @@ export function Gallery() {
             <div className="flex items-center gap-4 mb-6">
               <div className="h-px w-16 bg-gold" />
               <span className="text-[10px] font-black tracking-[0.5em] uppercase text-gold">
-                The Archival Exhibition
+                Sacred Yantras
               </span>
             </div>
             <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl leading-[1.1] tracking-tighter">
@@ -48,24 +48,24 @@ export function Gallery() {
             <div className="flex items-center gap-3 bg-gold/10 border border-gold/20 px-6 py-2 rounded-full">
               <Sparkles size={16} className="text-gold animate-pulse" />
               <span className="text-[9px] font-black tracking-[0.4em] uppercase text-gold">
-                High-Fidelity Research
+                Consecrated Geometry
               </span>
             </div>
           </div>
         </div>
 
-        {(isError || (!isLoading && (!photos || photos.length === 0))) && (
+        {(isError || (!isLoading && (!yantras || yantras.length === 0))) && (
           <p className="mb-8 text-sm text-white/50 font-serif max-w-xl">
             {isError
-              ? "We could not load the gallery. Check that the API is running and VITE_API_BASE_URL is set."
-              : "Gallery images will appear here once they are added in the admin panel (Gallery photos)."}
+              ? "We could not load the yantras. Check that the API is running and VITE_API_BASE_URL is set."
+              : "Yantras will appear here once they are added in the admin panel (Yantras)."}
           </p>
         )}
 
         <div className="flex flex-col lg:flex-row h-[600px] lg:h-[700px] gap-2 lg:gap-4 overflow-hidden rounded-[3rem] border border-white/10 p-2 lg:p-4 bg-white/[0.02]">
           {panels.map((panel, index) => (
             <div
-              key={panel.kind === "photo" ? `photo-${panel.photo.id}` : `sk-${panel.displayIndex}`}
+              key={panel.kind === "yantra" ? `yantra-${panel.yantra.id}` : `sk-${panel.displayIndex}`}
               onMouseEnter={() => setHovered(index)}
               onMouseLeave={() => setHovered(null)}
               className={`relative h-full transition-all duration-[1.2s] cubic-bezier(0.16, 1, 0.3, 1) overflow-hidden rounded-[2.5rem] border border-white/5 group
@@ -79,8 +79,8 @@ export function Gallery() {
                 ) : (
                   <>
                     <img
-                      src={panel.photo.image_url}
-                      alt={panel.photo.alt_text || panel.photo.title}
+                      src={panel.yantra.image_url}
+                      alt={panel.yantra.name}
                       className={`w-full h-full object-cover transition-all duration-[1.5s] 
                     ${hovered === index ? "grayscale-0 scale-105" : "grayscale brightness-50 scale-110 opacity-30"}
                   `}
@@ -90,7 +90,7 @@ export function Gallery() {
                 )}
               </div>
 
-              {panel.kind === "photo" && (
+              {panel.kind === "yantra" && (
                 <>
                   <div
                     className={`absolute inset-0 flex items-center justify-center transition-all duration-700 pointer-events-none
@@ -98,7 +98,7 @@ export function Gallery() {
               `}
                   >
                     <span className="font-serif text-2xl lg:text-3xl font-black text-white/10 rotate-90 whitespace-nowrap uppercase tracking-widest">
-                      {panel.photo.title}
+                      {panel.yantra.name}
                     </span>
                   </div>
 
@@ -112,14 +112,9 @@ export function Gallery() {
                         <div className="flex items-center gap-3">
                           <Zap size={16} className="text-gold animate-pulse" />
                           <span className="text-[10px] font-black tracking-widest text-gold uppercase">
-                            {(panel.photo.category ?? "Gallery").trim() || "Gallery"} Activated
+                            Yantra Activated
                           </span>
                         </div>
-                        {panel.photo.alt_text?.trim() ? (
-                          <span className="text-[9px] font-bold tracking-[0.2em] text-white/40 uppercase block">
-                            {panel.photo.alt_text.trim()}
-                          </span>
-                        ) : null}
                       </div>
                       <div className="h-14 w-14 rounded-full bg-gold text-[#020617] flex items-center justify-center shadow-2xl">
                         <ArrowUpRight size={24} />
@@ -131,12 +126,17 @@ export function Gallery() {
                         {String(panel.displayIndex + 1).padStart(2, "0")}
                       </span>
                       <h3 className="font-serif text-5xl lg:text-7xl font-black tracking-tighter text-white">
-                        {panel.photo.title}
+                        {panel.yantra.name}
                       </h3>
+                      {panel.yantra.details?.trim() ? (
+                        <p className="text-sm text-white/60 leading-relaxed font-serif max-w-md line-clamp-4">
+                          {panel.yantra.details.trim()}
+                        </p>
+                      ) : null}
                       <div className="flex items-center gap-4 border-t border-gold/20 pt-6">
                         <ShieldCheck size={18} className="text-gold" />
                         <span className="text-[10px] font-black tracking-[0.5em] uppercase text-gold/60 underline decoration-gold/20 underline-offset-8">
-                          Artifact Protocol Secured
+                          Consecrated Instrument
                         </span>
                       </div>
                     </div>

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\Services\Tables;
+namespace App\Filament\Resources\Yantras\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -11,7 +11,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 
-class ServicesTable
+class YantrasTable
 {
     public static function configure(Table $table): Table
     {
@@ -21,24 +21,18 @@ class ServicesTable
                     ->label('Image')
                     ->disk('public')
                     ->square(),
-                TextColumn::make('display_order')
-                    ->label('Order')
-                    ->sortable(),
                 TextColumn::make('name')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('rate')
-                    ->money('INR')
-                    ->sortable(),
-                TextColumn::make('duration')
+                TextColumn::make('details')
+                    ->limit(40)
                     ->toggleable(),
+                TextColumn::make('display_order')
+                    ->label('Order')
+                    ->sortable(),
                 IconColumn::make('is_active')
                     ->label('Published')
                     ->boolean(),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 TernaryFilter::make('is_active')

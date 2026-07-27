@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Service;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Storage;
 
 class ServiceController extends Controller
 {
@@ -48,6 +49,9 @@ class ServiceController extends Controller
             'slug' => $service->slug,
             'short_description' => $service->short_description,
             'description' => $service->description,
+            'image_url' => $service->image_path
+                ? Storage::disk('public')->url($service->image_path)
+                : null,
             'rate' => $service->rate,
             'duration' => $service->duration,
         ];

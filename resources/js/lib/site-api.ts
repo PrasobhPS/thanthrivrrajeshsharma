@@ -10,6 +10,24 @@ export type GalleryPhotoPayload = {
   image_url: string;
 };
 
+export type YantraPayload = {
+  id: number;
+  name: string;
+  details: string | null;
+  image_url: string;
+};
+
+export type ServicePayload = {
+  id: number;
+  name: string;
+  slug: string;
+  short_description: string | null;
+  description: string | null;
+  image_url: string | null;
+  rate: string | number;
+  duration: string | null;
+};
+
 export type YoutubeVideoPayload = {
   id: number;
   title: string;
@@ -48,6 +66,14 @@ async function readList<T>(path: string): Promise<T[]> {
 
 export function fetchGalleryPhotos(): Promise<GalleryPhotoPayload[]> {
   return readList<GalleryPhotoPayload>("gallery");
+}
+
+export function fetchYantras(): Promise<YantraPayload[]> {
+  return readList<YantraPayload>("yantras");
+}
+
+export function fetchServices(): Promise<ServicePayload[]> {
+  return readList<ServicePayload>("services");
 }
 
 export function fetchYoutubeVideos(): Promise<YoutubeVideoPayload[]> {

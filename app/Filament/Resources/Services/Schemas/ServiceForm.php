@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Services\Schemas;
 
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -24,6 +25,12 @@ class ServiceForm
                     ->required()
                     ->unique(ignoreRecord: true)
                     ->maxLength(255),
+                FileUpload::make('image_path')
+                    ->label('Image')
+                    ->disk('public')
+                    ->directory('services')
+                    ->image()
+                    ->imageEditor(),
                 Textarea::make('short_description')
                     ->maxLength(255)
                     ->rows(2),

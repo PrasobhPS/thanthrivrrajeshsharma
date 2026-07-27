@@ -4,20 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Service extends Model
+class Yantra extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'name',
-        'slug',
-        'short_description',
-        'description',
         'image_path',
-        'rate',
-        'duration',
+        'details',
         'display_order',
         'is_active',
     ];
@@ -25,14 +20,8 @@ class Service extends Model
     protected function casts(): array
     {
         return [
-            'rate' => 'decimal:2',
             'display_order' => 'integer',
             'is_active' => 'boolean',
         ];
-    }
-
-    public function inquiries(): HasMany
-    {
-        return $this->hasMany(Inquiry::class);
     }
 }
