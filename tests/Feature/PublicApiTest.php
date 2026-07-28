@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\GalleryPhoto;
 use App\Models\Inquiry;
 use App\Models\Service;
+use App\Models\Testimonial;
 use App\Models\YoutubeVideo;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -87,6 +88,36 @@ class PublicApiTest extends TestCase
             ->assertOk()
             ->assertJsonPath('data.0.title', 'Temple Lamps')
             ->assertJsonPath('data.0.image_url', 'http://localhost/storage/gallery/sample-1.svg');
+    }
+
+    public function test_it_lists_active_testimonials(): void
+    {
+        Testimonial::query()->create([
+            'quote' => 'A profound session.',
+            'author_name' => 'Akhil Raj Narayan',
+            'author_role' => 'Tech Founder',
+            'author_city' => 'Mumbai',
+            'tag' => 'Astro-Logic',
+            'image_path' => 'testimonials/sample.jpg',
+            'display_order' => 1,
+            'is_active' => true,
+        ]);
+
+        Testimonial::query()->create([
+            'quote' => 'Hidden story.',
+            'author_name' => 'Private Devotee',
+            'image_path' => 'testimonials/hidden.jpg',
+            'display_order' => 2,
+            'is_active' => false,
+        ]);
+
+        $this->getJson('/api/testimonials')
+            ->assertOk()
+            ->assertJsonPath('data.0.name', 'Akhil Raj Narayan')
+            ->assertJsonPath('data.0.quote', 'A profound session.')
+            ->assertJsonPath('data.0.tag', 'Astro-Logic')
+            ->assertJsonPath('data.0.image_url', 'http://localhost/storage/testimonials/sample.jpg')
+            ->assertJsonMissingPath('data.1');
     }
 
     public function test_it_stores_a_valid_inquiry(): void

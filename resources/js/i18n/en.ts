@@ -80,6 +80,9 @@ export const en = {
     eyebrow: "Sacred Resonances",
     titleLine1: "Whispers of",
     titleLine2: "Light",
+    loadError:
+      "We could not load devotee stories. Check that the API is running and VITE_API_BASE_URL is set.",
+    empty: "Devotee testimonials will appear here once they are added in the admin panel (Devotees).",
   },
   media: {
     eyebrow: "Teachings on YouTube",

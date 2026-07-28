@@ -17,6 +17,16 @@ export type YantraPayload = {
   image_url: string;
 };
 
+export type TestimonialPayload = {
+  id: number;
+  quote: string;
+  name: string;
+  role: string | null;
+  city: string | null;
+  tag: string | null;
+  image_url: string;
+};
+
 export type ServicePayload = {
   id: number;
   name: string;
@@ -70,6 +80,10 @@ export function fetchGalleryPhotos(): Promise<GalleryPhotoPayload[]> {
 
 export function fetchYantras(): Promise<YantraPayload[]> {
   return readList<YantraPayload>("yantras");
+}
+
+export function fetchTestimonials(): Promise<TestimonialPayload[]> {
+  return readList<TestimonialPayload>("testimonials");
 }
 
 export function fetchServices(): Promise<ServicePayload[]> {
