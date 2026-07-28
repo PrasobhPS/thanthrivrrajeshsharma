@@ -1,11 +1,12 @@
 import { MoveRight, ShieldCheck, History, GraduationCap, Flame, Star } from "lucide-react";
-import masterImg from "@/assets/guru-portrait.jpg";
 import { useLocale } from "@/i18n/LocaleProvider";
 import { useConsultationEnquiry } from "@/components/site/consultation-enquiry-context";
+import { useDefaultGuruPortrait } from "@/hooks/use-default-guru-portrait";
 
 export function About() {
   const { t } = useLocale();
   const { openEnquiry } = useConsultationEnquiry();
+  const { src: masterImg, alt: masterAlt } = useDefaultGuruPortrait();
   return (
     <section id="about" className="relative py-16 sm:py-20 bg-[#fdfcf6] text-[#1a1a1a] overflow-hidden">
       {/* Advanced Ambience: Architectural Depth */}
@@ -52,7 +53,7 @@ export function About() {
             <div className="relative aspect-[4/5] rounded-[4rem] overflow-hidden border-2 border-gold/10 shadow-2xl transition-all duration-1000 group-hover:border-gold/30">
               <img 
                 src={masterImg} 
-                alt="Thanthri V R Rajesh Sharmma" 
+                alt={masterAlt}
                 className="w-full h-full object-cover grayscale brightness-90 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#fdfcf6] via-transparent to-transparent opacity-60" />

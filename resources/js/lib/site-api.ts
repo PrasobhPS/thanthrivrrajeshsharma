@@ -50,6 +50,14 @@ export type ServicePayload = {
   duration: string | null;
 };
 
+export type GuruPortraitPayload = {
+  id: number;
+  title: string | null;
+  alt_text: string | null;
+  image_url: string;
+  is_default: boolean;
+};
+
 export type YoutubeVideoPayload = {
   id: number;
   title: string;
@@ -65,6 +73,12 @@ type ApiListResponse<T> = {
   data: T;
   error: unknown;
   meta: { total?: number };
+};
+
+type ApiItemResponse<T> = {
+  data: T;
+  error: unknown;
+  meta: Record<string, unknown>;
 };
 
 function apiUrl(path: string): string {
@@ -108,6 +122,19 @@ export function fetchServices(): Promise<ServicePayload[]> {
 
 export function fetchYoutubeVideos(): Promise<YoutubeVideoPayload[]> {
   return readList<YoutubeVideoPayload>("youtube-videos");
+}
+
+export function fetchGuruPortraits(): Promise<GuruPortraitPayload[]> {
+  return readList<GuruPortraitPayload>("guru-portraits");
+}
+
+export async function fetchDefaultGuruPortrait(): Promise<GuruPortraitPayload | null> {
+  const res = await fetch(apiUrl("guru-portraits/default"));
+  if (!res.ok) {
+    throw new Error(`Request failed (${res.status})`);
+  }
+  const body = (await res.json()) as ApiItemResponse<GuruPortraitPayload | null>;
+  return body.data ?? null;
 }
 
 export type InquiryPayload = {

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\GalleryPhotoController;
+use App\Http\Controllers\Api\GuruPortraitController;
 use App\Http\Controllers\Api\InquiryController;
 use App\Http\Controllers\Api\ResearchFindingController;
 use App\Http\Controllers\Api\ServiceController;
@@ -15,5 +16,7 @@ Route::get('/yantras', [YantraController::class, 'index']);
 Route::get('/testimonials', [TestimonialController::class, 'index']);
 Route::get('/research-findings', [ResearchFindingController::class, 'index']);
 Route::get('/gallery', [GalleryPhotoController::class, 'index']);
+Route::get('/guru-portraits', [GuruPortraitController::class, 'index']);
+Route::get('/guru-portraits/default', [GuruPortraitController::class, 'defaultPortrait']);
 Route::get('/youtube-videos', [YoutubeVideoController::class, 'index']);
 Route::post('/inquiries', [InquiryController::class, 'store']);

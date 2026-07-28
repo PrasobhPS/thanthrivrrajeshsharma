@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\GalleryPhoto;
+use App\Models\GuruPortrait;
 use App\Models\Inquiry;
 use App\Models\ResearchFinding;
 use App\Models\Service;
@@ -89,6 +90,35 @@ class PublicApiTest extends TestCase
             ->assertOk()
             ->assertJsonPath('data.0.title', 'Temple Lamps')
             ->assertJsonPath('data.0.image_url', 'http://localhost/storage/gallery/sample-1.svg');
+    }
+
+    public function test_it_returns_the_default_guru_portrait(): void
+    {
+        GuruPortrait::query()->create([
+            'title' => 'Secondary',
+            'image_path' => 'guru-portraits/secondary.jpg',
+            'display_order' => 2,
+            'is_default' => false,
+        ]);
+
+        GuruPortrait::query()->create([
+            'title' => 'Primary',
+            'image_path' => 'guru-portraits/primary.jpg',
+            'alt_text' => 'Guruji portrait',
+            'display_order' => 1,
+            'is_default' => true,
+        ]);
+
+        $this->getJson('/api/guru-portraits/default')
+            ->assertOk()
+            ->assertJsonPath('data.title', 'Primary')
+            ->assertJsonPath('data.is_default', true)
+            ->assertJsonPath('data.image_url', 'http://localhost/storage/guru-portraits/primary.jpg');
+
+        $this->getJson('/api/guru-portraits')
+            ->assertOk()
+            ->assertJsonPath('data.0.title', 'Primary')
+            ->assertJsonPath('meta.total', 2);
     }
 
     public function test_it_lists_active_research_findings(): void
