@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useLocale, type Locale } from "@/i18n/LocaleProvider";
+import { useConsultationEnquiry } from "@/components/site/consultation-enquiry-context";
 
 const linkKeys = [
   { labelKey: "nav.archive", href: "#about" },
@@ -13,6 +14,7 @@ const linkKeys = [
 
 export function Nav() {
   const { locale, setLocale, t } = useLocale();
+  const { openEnquiry } = useConsultationEnquiry();
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -92,13 +94,16 @@ export function Nav() {
               </button>
             </div>
 
-            <a
-              href="#consult"
-              className="hidden sm:inline-flex items-center gap-2 rounded-full bg-gradient-gold px-5 py-2.5 text-[10px] font-heading tracking-widest uppercase text-primary-foreground hover:opacity-90 transition shadow-[0_8px_30px_-8px_oklch(0.82_0.16_82/0.6)]"
+            <button
+              type="button"
+              onClick={openEnquiry}
+              className="inline-flex items-center gap-2 rounded-full bg-gradient-gold px-4 py-2 sm:px-5 sm:py-2.5 text-[10px] font-heading tracking-widest uppercase text-primary-foreground hover:opacity-90 transition shadow-[0_8px_30px_-8px_oklch(0.82_0.16_82/0.6)]"
             >
               {t("nav.consultation")}
-              <span aria-hidden>→</span>
-            </a>
+              <span aria-hidden className="hidden sm:inline">
+                →
+              </span>
+            </button>
           </div>
         </div>
       </div>

@@ -1,9 +1,11 @@
 import { MoveRight, ShieldCheck, History, GraduationCap, Flame, Star } from "lucide-react";
 import masterImg from "@/assets/guru-portrait.jpg";
 import { useLocale } from "@/i18n/LocaleProvider";
+import { useConsultationEnquiry } from "@/components/site/consultation-enquiry-context";
 
 export function About() {
   const { t } = useLocale();
+  const { openEnquiry } = useConsultationEnquiry();
   return (
     <section id="about" className="relative py-16 sm:py-20 bg-[#fdfcf6] text-[#1a1a1a] overflow-hidden">
       {/* Advanced Ambience: Architectural Depth */}
@@ -113,8 +115,14 @@ export function About() {
                   Daily Consultation Portal: Active
                 </span>
               </div>
-              <button className="bg-[#1a1a1a] text-white px-10 py-5 rounded-[2rem] flex items-center gap-4 hover:bg-gold transition-all group shadow-xl">
-                <span className="text-[10px] font-black tracking-widest uppercase font-heading">Initialize Protocol</span>
+              <button
+                type="button"
+                onClick={openEnquiry}
+                className="bg-[#1a1a1a] text-white px-10 py-5 rounded-[2rem] flex items-center gap-4 hover:bg-gold transition-all group shadow-xl"
+              >
+                <span className="text-[10px] font-black tracking-widest uppercase font-heading">
+                  {t("enquiry.openCta")}
+                </span>
                 <MoveRight size={18} className="group-hover:translate-x-2 transition-transform" />
               </button>
             </div>

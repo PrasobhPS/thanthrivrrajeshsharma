@@ -1,9 +1,11 @@
-import { Play, ArrowRight, Search, Target, Activity, ShieldCheck } from "lucide-react";
+import { Play, ArrowRight, Search, Activity, ShieldCheck } from "lucide-react";
 import mudraImg from "@/assets/master-mudra-hero.png";
 import { useLocale } from "@/i18n/LocaleProvider";
+import { useConsultationEnquiry } from "@/components/site/consultation-enquiry-context";
 
 export function Hero() {
   const { t } = useLocale();
+  const { openEnquiry } = useConsultationEnquiry();
   return (
     <section className="relative min-h-screen lg:h-svh flex flex-col bg-[#020617] text-[#fdfcf6] overflow-hidden">
 
@@ -38,7 +40,11 @@ export function Hero() {
                 </p>
 
                 <div className="flex flex-col sm:flex-row items-center gap-6 pt-4">
-                  <button className="w-full sm:w-auto bg-gold text-black px-10 py-5 rounded-full font-black text-[10px] tracking-widest uppercase hover:bg-white transition-all shadow-2xl flex items-center justify-center gap-4 group font-heading">
+                  <button
+                    type="button"
+                    onClick={openEnquiry}
+                    className="w-full sm:w-auto bg-gold text-black px-10 py-5 rounded-full font-black text-[10px] tracking-widest uppercase hover:bg-white transition-all shadow-2xl flex items-center justify-center gap-4 group font-heading"
+                  >
                     {t("hero.connect")} <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
                   </button>
                   <button className="flex items-center gap-4 group">

@@ -116,6 +116,27 @@ export const en = {
   backToTop: {
     label: "Back to Top",
   },
+  enquiry: {
+    title: "Consultation enquiry",
+    description: "Share your details and we will contact you about a suitable consultation time.",
+    name: "Full name",
+    namePlaceholder: "Your name",
+    phone: "Phone",
+    phonePlaceholder: "WhatsApp / mobile number",
+    email: "Email",
+    emailPlaceholder: "Optional email",
+    service: "Service of interest",
+    generalService: "General consultation",
+    date: "Preferred date",
+    message: "Message",
+    messagePlaceholder: "Briefly describe what you would like guidance on",
+    submit: "Send enquiry",
+    submitting: "Sending…",
+    success: "Your enquiry has been received. We will contact you soon.",
+    validationError: "Please check the highlighted fields and try again.",
+    submitError: "We could not send your enquiry. Please try again shortly.",
+    openCta: "Enquire now",
+  },
 } as const;
 
 export type Messages = typeof en;
