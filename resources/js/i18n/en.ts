@@ -75,6 +75,9 @@ export const en = {
     titleLine1: "Research",
     titleLine2: "Findings",
     verified: "Verified Knowledge Base",
+    loadError:
+      "We could not load research findings. Check that the API is running and VITE_API_BASE_URL is set.",
+    empty: "Research findings will appear here once they are added in the admin panel (Journal).",
   },
   devotees: {
     eyebrow: "Sacred Resonances",

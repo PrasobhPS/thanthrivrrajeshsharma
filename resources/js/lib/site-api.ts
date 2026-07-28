@@ -27,6 +27,18 @@ export type TestimonialPayload = {
   image_url: string;
 };
 
+export type ResearchFindingPayload = {
+  id: number;
+  reference_code: string;
+  category: string;
+  title: string;
+  excerpt: string;
+  image_url: string;
+  published_at: string;
+  read_time_minutes: number;
+  tags: string[];
+};
+
 export type ServicePayload = {
   id: number;
   name: string;
@@ -84,6 +96,10 @@ export function fetchYantras(): Promise<YantraPayload[]> {
 
 export function fetchTestimonials(): Promise<TestimonialPayload[]> {
   return readList<TestimonialPayload>("testimonials");
+}
+
+export function fetchResearchFindings(): Promise<ResearchFindingPayload[]> {
+  return readList<ResearchFindingPayload>("research-findings");
 }
 
 export function fetchServices(): Promise<ServicePayload[]> {

@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\GalleryPhoto;
 use App\Models\Inquiry;
+use App\Models\ResearchFinding;
 use App\Models\Service;
 use App\Models\Testimonial;
 use App\Models\YoutubeVideo;
@@ -88,6 +89,42 @@ class PublicApiTest extends TestCase
             ->assertOk()
             ->assertJsonPath('data.0.title', 'Temple Lamps')
             ->assertJsonPath('data.0.image_url', 'http://localhost/storage/gallery/sample-1.svg');
+    }
+
+    public function test_it_lists_active_research_findings(): void
+    {
+        ResearchFinding::query()->create([
+            'reference_code' => 'J-26',
+            'category' => 'Sonic Science',
+            'title' => 'Mantra Resonance & Cellular Calibration',
+            'excerpt' => 'The intersection of Vedic chanting and quantum physics.',
+            'image_path' => 'research-findings/sample.jpg',
+            'published_at' => '2024-05-04',
+            'read_time_minutes' => 7,
+            'tags' => ['Acoustics', 'Physics'],
+            'display_order' => 1,
+            'is_active' => true,
+        ]);
+
+        ResearchFinding::query()->create([
+            'reference_code' => 'J-99',
+            'category' => 'Draft',
+            'title' => 'Unpublished',
+            'excerpt' => 'Hidden.',
+            'image_path' => 'research-findings/hidden.jpg',
+            'published_at' => '2024-01-01',
+            'read_time_minutes' => 5,
+            'display_order' => 2,
+            'is_active' => false,
+        ]);
+
+        $this->getJson('/api/research-findings')
+            ->assertOk()
+            ->assertJsonPath('data.0.reference_code', 'J-26')
+            ->assertJsonPath('data.0.title', 'Mantra Resonance & Cellular Calibration')
+            ->assertJsonPath('data.0.tags.0', 'Acoustics')
+            ->assertJsonPath('data.0.image_url', 'http://localhost/storage/research-findings/sample.jpg')
+            ->assertJsonMissingPath('data.1');
     }
 
     public function test_it_lists_active_testimonials(): void
