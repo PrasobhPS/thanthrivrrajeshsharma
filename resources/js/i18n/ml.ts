@@ -88,7 +88,7 @@ export const ml: Messages = {
     titleLine1: "Thanthri",
     titleLine2: "ആർക്കൈവുകൾ",
     introPrefix: "തിരഞ്ഞെടുത്ത പ്ലേലിസ്റ്റുകൾ —",
-    introSuffix: "പോപ്പ‑അപ്പിൽ കാണാൻ ചിത്രം തിരഞ്ഞെടുക്കുക.",
+    introSuffix: "ഇവിടെ കാണാൻ ചിത്രം തിരഞ്ഞെടുക്കുക.",
     youtube: "YouTube",
     loadError:
       "വീഡിയോകൾ ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല. API പ്രവർത്തിക്കുന്നുണ്ടോ, VITE_API_BASE_URL സജ്ജമാണോ എന്ന് പരിശോധിക്കുക.",
@@ -99,7 +99,7 @@ export const ml: Messages = {
       "ഔദ്യോഗിക ചാനലിലെ ഏറ്റവും പുതിയ സന്ദേശങ്ങളും വഴിപാടുകളും പ്രദർശിപ്പിക്കാൻ അഡ്മിൻ ഡാഷ്‌ബോർഡിൽ വീഡിയോ പട്ടിക നിലനിർത്തുന്നു.",
     openChannel: "YouTube-ൽ ചാനൽ തുറക്കുക",
     channelEnvHint: "ചാനൽ shortcut-ിന് VITE_THANTHRI_YOUTUBE_CHANNEL_URL സജ്ജമാക്കുക",
-    videoDialog: "YouTube വീഡിയോ",
+    playVideo: "വീഡിയോ പ്ലേ ചെയ്യുക",
   },
   footer: {
     tagline:

@@ -86,7 +86,7 @@ export const en = {
     titleLine1: "Thanthri",
     titleLine2: "Archives",
     introPrefix: "Curated playlists from",
-    introSuffix: "Select a thumbnail to watch in a popup.",
+    introSuffix: "Select a thumbnail to watch here.",
     youtube: "YouTube",
     loadError:
       "We could not load videos. Check that the API is running and VITE_API_BASE_URL is set.",
@@ -97,7 +97,7 @@ export const en = {
       "Video list is maintained in the admin dashboard so you can feature the latest messages and rituals from the official channel.",
     openChannel: "Open channel on YouTube",
     channelEnvHint: "Set VITE_THANTHRI_YOUTUBE_CHANNEL_URL for a channel shortcut",
-    videoDialog: "YouTube video",
+    playVideo: "Play video",
   },
   footer: {
     tagline:
