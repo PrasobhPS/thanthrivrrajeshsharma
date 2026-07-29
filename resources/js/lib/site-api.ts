@@ -58,6 +58,29 @@ export type GuruPortraitPayload = {
   is_default: boolean;
 };
 
+export type GuruProfileDetailPayload = {
+  id: number;
+  title: string | null;
+  eyebrow: string | null;
+  title_line_1: string | null;
+  title_line_2: string | null;
+  authority_label: string | null;
+  authority_quote: string | null;
+  verification_badge_label: string | null;
+  verification_grade: string | null;
+  tradition_seal_text: string | null;
+  bio_lead: string | null;
+  bio_description: string | null;
+  stat_one_label: string | null;
+  stat_one_value: string | null;
+  stat_one_sublabel: string | null;
+  stat_two_label: string | null;
+  stat_two_value: string | null;
+  stat_two_sublabel: string | null;
+  consultation_status_text: string | null;
+  is_default: boolean;
+};
+
 export type YoutubeVideoPayload = {
   id: number;
   title: string;
@@ -134,6 +157,19 @@ export async function fetchDefaultGuruPortrait(): Promise<GuruPortraitPayload | 
     throw new Error(`Request failed (${res.status})`);
   }
   const body = (await res.json()) as ApiItemResponse<GuruPortraitPayload | null>;
+  return body.data ?? null;
+}
+
+export function fetchGuruProfileDetails(): Promise<GuruProfileDetailPayload[]> {
+  return readList<GuruProfileDetailPayload>("guru-profile-details");
+}
+
+export async function fetchDefaultGuruProfileDetail(): Promise<GuruProfileDetailPayload | null> {
+  const res = await fetch(apiUrl("guru-profile-details/default"));
+  if (!res.ok) {
+    throw new Error(`Request failed (${res.status})`);
+  }
+  const body = (await res.json()) as ApiItemResponse<GuruProfileDetailPayload | null>;
   return body.data ?? null;
 }
 

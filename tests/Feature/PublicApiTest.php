@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\GalleryPhoto;
 use App\Models\GuruPortrait;
+use App\Models\GuruProfileDetail;
 use App\Models\Inquiry;
 use App\Models\ResearchFinding;
 use App\Models\Service;
@@ -116,6 +117,39 @@ class PublicApiTest extends TestCase
             ->assertJsonPath('data.image_url', 'http://localhost/storage/guru-portraits/primary.jpg');
 
         $this->getJson('/api/guru-portraits')
+            ->assertOk()
+            ->assertJsonPath('data.0.title', 'Primary')
+            ->assertJsonPath('meta.total', 2);
+    }
+
+    public function test_it_returns_the_default_guru_profile_detail(): void
+    {
+        GuruProfileDetail::query()->create([
+            'title' => 'Secondary',
+            'title_line_1' => 'Alternate Headline',
+            'display_order' => 2,
+            'is_default' => false,
+        ]);
+
+        GuruProfileDetail::query()->create([
+            'title' => 'Primary',
+            'eyebrow' => 'The Master Narrative',
+            'title_line_1' => 'The Guardian of',
+            'title_line_2' => 'Unbroken Tradition',
+            'bio_lead' => 'A 1,000-year legacy of Tantric mastery.',
+            'stat_one_value' => '27+ Years',
+            'display_order' => 1,
+            'is_default' => true,
+        ]);
+
+        $this->getJson('/api/guru-profile-details/default')
+            ->assertOk()
+            ->assertJsonPath('data.title', 'Primary')
+            ->assertJsonPath('data.title_line_1', 'The Guardian of')
+            ->assertJsonPath('data.is_default', true)
+            ->assertJsonPath('data.bio_lead', 'A 1,000-year legacy of Tantric mastery.');
+
+        $this->getJson('/api/guru-profile-details')
             ->assertOk()
             ->assertJsonPath('data.0.title', 'Primary')
             ->assertJsonPath('meta.total', 2);

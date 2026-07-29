@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\GalleryPhotoController;
 use App\Http\Controllers\Api\GuruPortraitController;
+use App\Http\Controllers\Api\GuruProfileDetailController;
 use App\Http\Controllers\Api\InquiryController;
 use App\Http\Controllers\Api\ResearchFindingController;
 use App\Http\Controllers\Api\ServiceController;
@@ -18,5 +19,7 @@ Route::get('/research-findings', [ResearchFindingController::class, 'index']);
 Route::get('/gallery', [GalleryPhotoController::class, 'index']);
 Route::get('/guru-portraits', [GuruPortraitController::class, 'index']);
 Route::get('/guru-portraits/default', [GuruPortraitController::class, 'defaultPortrait']);
+Route::get('/guru-profile-details', [GuruProfileDetailController::class, 'index']);
+Route::get('/guru-profile-details/default', [GuruProfileDetailController::class, 'defaultDetail']);
 Route::get('/youtube-videos', [YoutubeVideoController::class, 'index']);
 Route::post('/inquiries', [InquiryController::class, 'store']);
