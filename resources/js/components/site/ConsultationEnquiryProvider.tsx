@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useMemo, useState, type FormEvent, type ReactNode } from "react";
+import { useCallback, useEffect, useMemo, useState, type FormEvent, type MouseEvent, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useQuery } from "@tanstack/react-query";
-import { X } from "lucide-react";
+import { MessageCircle, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -10,6 +10,7 @@ import {
   fetchServices,
   submitInquiry,
 } from "@/lib/site-api";
+import { buildWhatsAppUrl, composeWhatsAppEnquiryMessage } from "@/lib/whatsapp";
 import { useLocale } from "@/i18n/LocaleProvider";
 import { ConsultationEnquiryContext } from "@/components/site/consultation-enquiry-context";
 
@@ -29,6 +30,7 @@ export function ConsultationEnquiryProvider({ children }: { children: ReactNode 
   const [fieldErrors, setFieldErrors] = useState<Record<string, string[]>>({});
   const [formError, setFormError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [savedWhatsAppMessage, setSavedWhatsAppMessage] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
   const { data: services = [] } = useQuery({
@@ -51,6 +53,7 @@ export function ConsultationEnquiryProvider({ children }: { children: ReactNode 
     setFieldErrors({});
     setFormError(null);
     setSuccessMessage(null);
+    setSavedWhatsAppMessage("");
     setSubmitting(false);
   }, []);
 
@@ -76,6 +79,64 @@ export function ConsultationEnquiryProvider({ children }: { children: ReactNode 
     };
   }, [open, closeEnquiry]);
 
+  const selectedServiceName = useMemo(() => {
+    const serviceId = form.serviceKey ? Number(form.serviceKey) : NaN;
+    if (!Number.isFinite(serviceId) || serviceId <= 0) {
+      return t("enquiry.generalService");
+    }
+
+    return services.find((service) => service.id === serviceId)?.name ?? t("enquiry.generalService");
+  }, [form.serviceKey, services, t]);
+
+  const whatsappMessage = useMemo(
+    () =>
+      composeWhatsAppEnquiryMessage({
+        greeting: t("whatsapp.greeting"),
+        nameLabel: t("enquiry.name"),
+        phoneLabel: t("enquiry.phone"),
+        serviceLabel: t("enquiry.service"),
+        dateLabel: t("enquiry.date"),
+        name: form.name,
+        phone: form.phone,
+        service: selectedServiceName,
+        date: form.requested_date,
+        note: form.message,
+      }),
+    [form.message, form.name, form.phone, form.requested_date, selectedServiceName, t],
+  );
+
+  const persistInquiry = async () => {
+    const serviceId = form.serviceKey ? Number(form.serviceKey) : NaN;
+    return submitInquiry({
+      name: form.name.trim(),
+      phone: form.phone.trim(),
+      email: form.email.trim() || undefined,
+      service_id: Number.isFinite(serviceId) && serviceId > 0 ? serviceId : undefined,
+      requested_service:
+        Number.isFinite(serviceId) && serviceId > 0 ? undefined : t("enquiry.generalService"),
+      requested_date: form.requested_date || undefined,
+      message: form.message.trim() || undefined,
+    });
+  };
+
+  const onContinueWhatsApp = (event: MouseEvent<HTMLAnchorElement>) => {
+    if (!form.name.trim() || !form.phone.trim()) {
+      event.preventDefault();
+      setFieldErrors({
+        ...(form.name.trim() ? {} : { name: [t("enquiry.validationError")] }),
+        ...(form.phone.trim() ? {} : { phone: [t("enquiry.validationError")] }),
+      });
+      setFormError(t("enquiry.validationError"));
+      return;
+    }
+
+    setFieldErrors({});
+    setFormError(null);
+    void persistInquiry().catch(() => {
+      // WhatsApp is already opening; keep the form available if the API save fails.
+    });
+  };
+
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setFieldErrors({});
@@ -84,20 +145,9 @@ export function ConsultationEnquiryProvider({ children }: { children: ReactNode 
     setSubmitting(true);
 
     try {
-      const serviceId = form.serviceKey ? Number(form.serviceKey) : NaN;
-      const result = await submitInquiry({
-        name: form.name.trim(),
-        phone: form.phone.trim(),
-        email: form.email.trim() || undefined,
-        service_id: Number.isFinite(serviceId) && serviceId > 0 ? serviceId : undefined,
-        requested_service:
-          Number.isFinite(serviceId) && serviceId > 0
-            ? undefined
-            : t("enquiry.generalService"),
-        requested_date: form.requested_date || undefined,
-        message: form.message.trim() || undefined,
-      });
+      const result = await persistInquiry();
 
+      setSavedWhatsAppMessage(whatsappMessage);
       setSuccessMessage(result.message || t("enquiry.success"));
       setForm(emptyForm);
     } catch (error) {
@@ -156,6 +206,15 @@ export function ConsultationEnquiryProvider({ children }: { children: ReactNode 
                     <p className="rounded-xl border border-gold/30 bg-gold/10 px-4 py-3 text-sm text-gold font-serif">
                       {successMessage}
                     </p>
+                    <a
+                      href={buildWhatsAppUrl(savedWhatsAppMessage || t("whatsapp.greeting"))}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex w-full items-center justify-center gap-3 rounded-full bg-[#25D366] px-6 py-3 text-[10px] font-black uppercase tracking-widest text-white transition hover:opacity-90"
+                    >
+                      <MessageCircle size={16} fill="currentColor" />
+                      {t("enquiry.whatsapp")}
+                    </a>
                     <button
                       type="button"
                       onClick={closeEnquiry}
@@ -309,13 +368,25 @@ export function ConsultationEnquiryProvider({ children }: { children: ReactNode 
                       </p>
                     ) : null}
 
-                    <button
-                      type="submit"
-                      disabled={submitting}
-                      className="w-full rounded-full bg-gradient-gold px-6 py-3.5 text-[10px] font-black uppercase tracking-widest text-primary-foreground shadow-[0_8px_30px_-8px_oklch(0.82_0.16_82/0.6)] transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
-                    >
-                      {submitting ? t("enquiry.submitting") : t("enquiry.submit")}
-                    </button>
+                    <div className="space-y-3 pt-1">
+                      <a
+                        href={buildWhatsAppUrl(whatsappMessage)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={onContinueWhatsApp}
+                        className="flex w-full items-center justify-center gap-3 rounded-full bg-[#25D366] px-6 py-3.5 text-[10px] font-black uppercase tracking-widest text-white transition hover:opacity-90"
+                      >
+                        <MessageCircle size={16} fill="currentColor" />
+                        {t("enquiry.whatsapp")}
+                      </a>
+                      <button
+                        type="submit"
+                        disabled={submitting}
+                        className="w-full rounded-full border border-gold/30 bg-transparent px-6 py-3.5 text-[10px] font-black uppercase tracking-widest text-gold transition hover:bg-gold/10 disabled:cursor-not-allowed disabled:opacity-60"
+                      >
+                        {submitting ? t("enquiry.submitting") : t("enquiry.submit")}
+                      </button>
+                    </div>
                   </form>
                 )}
               </div>

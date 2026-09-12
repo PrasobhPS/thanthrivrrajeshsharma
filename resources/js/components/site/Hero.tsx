@@ -1,7 +1,8 @@
-import { Play, ArrowRight, Search, Activity, ShieldCheck } from "lucide-react";
+import { Play, ArrowRight, Search, Activity, ShieldCheck, MessageCircle } from "lucide-react";
 import mudraImg from "@/assets/master-mudra-hero.png";
 import { useLocale } from "@/i18n/LocaleProvider";
 import { useConsultationEnquiry } from "@/components/site/consultation-enquiry-context";
+import { WhatsAppLink } from "@/components/site/WhatsAppLink";
 
 export function Hero() {
   const { t } = useLocale();
@@ -47,6 +48,14 @@ export function Hero() {
                   >
                     {t("hero.connect")} <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
                   </button>
+                  <WhatsAppLink
+                    message={t("whatsapp.greeting")}
+                    ariaLabel={t("whatsapp.chatCta")}
+                    className="w-full sm:w-auto px-8 py-5 rounded-full border border-[#25D366]/40 bg-[#25D366]/10 text-[#25D366] font-black text-[10px] tracking-widest uppercase hover:bg-[#25D366] hover:text-white transition-all flex items-center justify-center gap-3 font-heading"
+                  >
+                    <MessageCircle size={18} fill="currentColor" />
+                    {t("whatsapp.chatCta")}
+                  </WhatsAppLink>
                   <button className="flex items-center gap-4 group">
                     <div className="h-12 w-12 rounded-full border border-white/10 flex items-center justify-center group-hover:border-gold transition-all relative overflow-hidden">
                       <div className="absolute inset-0 bg-gold/10 scale-0 group-hover:scale-100 transition-transform duration-500 rounded-full" />

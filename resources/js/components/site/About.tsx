@@ -1,6 +1,7 @@
-import { MoveRight, ShieldCheck, History, GraduationCap, Flame, Star } from "lucide-react";
+import { MoveRight, ShieldCheck, History, GraduationCap, Flame, Star, MessageCircle } from "lucide-react";
 import { useLocale } from "@/i18n/LocaleProvider";
 import { useConsultationEnquiry } from "@/components/site/consultation-enquiry-context";
+import { WhatsAppLink } from "@/components/site/WhatsAppLink";
 import { useDefaultGuruPortrait } from "@/hooks/use-default-guru-portrait";
 import {
   pickProfileText,
@@ -153,23 +154,32 @@ export function About() {
             </div>
 
             {/* Floating Inquiry Bar (Reference inspired) */}
-            <div className="bg-white border border-gold/10 rounded-[2.5rem] p-3 pl-10 flex items-center justify-between shadow-2xl animate-fade-up" style={{ animationDelay: '800ms' }}>
+            <div className="bg-white border border-gold/10 rounded-[2.5rem] p-3 pl-6 sm:pl-10 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 shadow-2xl animate-fade-up" style={{ animationDelay: '800ms' }}>
               <div className="flex items-center gap-6">
                 <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
                 <span className="text-[10px] font-black tracking-widest uppercase text-[#1a1a1a]/40">
                   {consultationStatus}
                 </span>
               </div>
-              <button
-                type="button"
-                onClick={openEnquiry}
-                className="bg-[#1a1a1a] text-white px-10 py-5 rounded-[2rem] flex items-center gap-4 hover:bg-gold transition-all group shadow-xl"
-              >
-                <span className="text-[10px] font-black tracking-widest uppercase font-heading">
-                  {t("enquiry.openCta")}
-                </span>
-                <MoveRight size={18} className="group-hover:translate-x-2 transition-transform" />
-              </button>
+              <div className="flex items-center gap-2">
+                <WhatsAppLink
+                  message={t("whatsapp.greeting")}
+                  ariaLabel={t("whatsapp.chatCta")}
+                  className="h-14 w-14 rounded-[1.5rem] bg-[#25D366] text-white flex items-center justify-center hover:opacity-90 transition shadow-xl"
+                >
+                  <MessageCircle size={20} fill="currentColor" />
+                </WhatsAppLink>
+                <button
+                  type="button"
+                  onClick={openEnquiry}
+                  className="bg-[#1a1a1a] text-white px-8 sm:px-10 py-5 rounded-[2rem] flex items-center gap-4 hover:bg-gold transition-all group shadow-xl"
+                >
+                  <span className="text-[10px] font-black tracking-widest uppercase font-heading">
+                    {t("enquiry.openCta")}
+                  </span>
+                  <MoveRight size={18} className="group-hover:translate-x-2 transition-transform" />
+                </button>
+              </div>
             </div>
           </div>
 

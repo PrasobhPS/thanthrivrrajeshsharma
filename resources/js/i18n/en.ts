@@ -17,6 +17,12 @@ export const en = {
     langEn: "English",
     langMl: "Malayalam",
   },
+  whatsapp: {
+    greeting: "Namaste, I would like a consultation.",
+    chatCta: "Chat on WhatsApp",
+    continue: "Continue on WhatsApp",
+    floatHint: "Chat on WhatsApp",
+  },
   hero: {
     eyebrow: "Ancestral Transmission",
     titleLine1: "Vedic Lineage.",
@@ -124,7 +130,8 @@ export const en = {
   },
   enquiry: {
     title: "Consultation enquiry",
-    description: "Share your details and we will contact you about a suitable consultation time.",
+    description:
+      "Share your details. We will save your enquiry, and you can continue the conversation on WhatsApp.",
     name: "Full name",
     namePlaceholder: "Your name",
     phone: "Phone",
@@ -137,12 +144,18 @@ export const en = {
     message: "Message",
     messagePlaceholder: "Briefly describe what you would like guidance on",
     submit: "Send enquiry",
+    whatsapp: "Continue on WhatsApp",
     submitting: "Sending…",
     success: "Your enquiry has been received. We will contact you soon.",
+    successWhatsapp: "Your enquiry is ready. Continue the conversation on WhatsApp if the chat did not open.",
     validationError: "Please check the highlighted fields and try again.",
     submitError: "We could not send your enquiry. Please try again shortly.",
     openCta: "Enquire now",
   },
 } as const;
 
-export type Messages = typeof en;
+type DeepStringify<T> = {
+  [K in keyof T]: T[K] extends string ? string : DeepStringify<T[K]>;
+};
+
+export type Messages = DeepStringify<typeof en>;

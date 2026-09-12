@@ -1,12 +1,11 @@
-import { Facebook, Instagram, Youtube, Twitter, Send, MapPin, Phone, Mail, QrCode, MessageCircle } from "lucide-react";
+import { Facebook, Instagram, Youtube, Twitter, MapPin, Phone, Mail, QrCode, MessageCircle } from "lucide-react";
 import { useLocale } from "@/i18n/LocaleProvider";
-
-const CONTACT_PHONE = "+918547884351";
-const CONTACT_PLACE = "Vakathanam, Kottayam";
-const CONTACT_WHATSAPP = `https://wa.me/${CONTACT_PHONE.replace(/\D/g, "")}`;
+import { WhatsAppLink } from "@/components/site/WhatsAppLink";
+import { CONTACT_PHONE, CONTACT_PLACE } from "@/lib/whatsapp";
 
 export function Footer() {
   const { t } = useLocale();
+  const greeting = t("whatsapp.greeting");
   return (
     <footer className="relative bg-[#020617] text-[#fdfcf6] pt-16 pb-10 overflow-hidden border-t border-white/5">
       {/* Background Ambience: Subtle Cosmic Dust */}
@@ -135,19 +134,16 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Floating WhatsApp Action (Reference inspired) */}
-      <a 
-        href={CONTACT_WHATSAPP}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={`WhatsApp ${CONTACT_PHONE}`}
+      <WhatsAppLink
+        message={greeting}
+        ariaLabel={`${t("whatsapp.chatCta")} ${CONTACT_PHONE}`}
         className="fixed bottom-10 right-10 z-50 h-16 w-16 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-all group"
       >
         <MessageCircle size={32} fill="currentColor" className="group-hover:rotate-12 transition-transform" />
         <div className="absolute right-full mr-6 px-6 py-3 bg-white text-[#020617] rounded-full text-[10px] font-black tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-all translate-x-10 group-hover:translate-x-0 shadow-2xl pointer-events-none whitespace-nowrap">
-          Open Ritual Portal
+          {t("whatsapp.floatHint")}
         </div>
-      </a>
+      </WhatsAppLink>
     </footer>
   );
 }

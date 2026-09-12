@@ -19,6 +19,12 @@ export const ml: Messages = {
     langEn: "English",
     langMl: "മലയാളം",
   },
+  whatsapp: {
+    greeting: "നമസ്തേ, എനിക്ക് ഒരു കൺസൾട്ടേഷൻ വേണം.",
+    chatCta: "WhatsApp-ൽ ചാറ്റ് ചെയ്യുക",
+    continue: "WhatsApp-ൽ തുടരുക",
+    floatHint: "WhatsApp-ൽ ചാറ്റ് ചെയ്യുക",
+  },
   hero: {
     eyebrow: "പാരമ്പര്യ അനുധാനം",
     titleLine1: "വൈദിക പാരമ്പര്യം.",
@@ -126,7 +132,8 @@ export const ml: Messages = {
   },
   enquiry: {
     title: "കൺസൾട്ടേഷൻ അന്വേഷണം",
-    description: "നിങ്ങളുടെ വിവരങ്ങൾ പങ്കുവയ്ക്കുക; അനുയോജ്യമായ സമയത്തിനായി ഞങ്ങൾ ബന്ധപ്പെടും.",
+    description:
+      "നിങ്ങളുടെ വിവരങ്ങൾ പങ്കുവയ്ക്കുക. ഞങ്ങൾ അന്വേഷണം സൂക്ഷിക്കും; സംഭാഷണം WhatsApp-ൽ തുടരാം.",
     name: "പൂർണ്ണ നാമം",
     namePlaceholder: "നിങ്ങളുടെ പേര്",
     phone: "ഫോൺ",
@@ -139,8 +146,10 @@ export const ml: Messages = {
     message: "സന്ദേശം",
     messagePlaceholder: "നിങ്ങൾക്ക് വേണ്ട മാർഗനിർദേശം ചുരുക്കി എഴുതുക",
     submit: "അന്വേഷണം അയയ്ക്കുക",
+    whatsapp: "WhatsApp-ൽ തുടരുക",
     submitting: "അയയ്ക്കുന്നു…",
     success: "നിങ്ങളുടെ അന്വേഷണം ലഭിച്ചു. ഞങ്ങൾ ഉടൻ ബന്ധപ്പെടും.",
+    successWhatsapp: "നിങ്ങളുടെ അന്വേഷണം തയ്യാറാണ്. ചാറ്റ് തുറന്നില്ലെങ്കിൽ WhatsApp-ൽ തുടരുക.",
     validationError: "ഹൈലൈറ്റ് ചെയ്ത ഫീൽഡുകൾ പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക.",
     submitError: "അന്വേഷണം അയയ്ക്കാൻ കഴിഞ്ഞില്ല. അൽപ്പസമയം കഴിഞ്ഞ് വീണ്ടും ശ്രമിക്കുക.",
     openCta: "ഇപ്പോൾ അന്വേഷിക്കുക",

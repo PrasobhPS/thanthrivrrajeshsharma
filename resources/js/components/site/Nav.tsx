@@ -1,7 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { MessageCircle } from "lucide-react";
 import { useLocale, type Locale } from "@/i18n/LocaleProvider";
 import { useConsultationEnquiry } from "@/components/site/consultation-enquiry-context";
+import { WhatsAppLink } from "@/components/site/WhatsAppLink";
 
 const linkKeys = [
   { labelKey: "nav.archive", href: "#about" },
@@ -94,6 +96,13 @@ export function Nav() {
               </button>
             </div>
 
+            <WhatsAppLink
+              message={t("whatsapp.greeting")}
+              ariaLabel={t("whatsapp.chatCta")}
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-[#25D366] text-white transition hover:scale-105"
+            >
+              <MessageCircle size={16} fill="currentColor" />
+            </WhatsAppLink>
             <button
               type="button"
               onClick={openEnquiry}
