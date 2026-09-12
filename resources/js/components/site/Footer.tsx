@@ -1,6 +1,10 @@
 import { Facebook, Instagram, Youtube, Twitter, Send, MapPin, Phone, Mail, QrCode, MessageCircle } from "lucide-react";
 import { useLocale } from "@/i18n/LocaleProvider";
 
+const CONTACT_PHONE = "+918547884351";
+const CONTACT_PLACE = "Vakathanam, Kottayam";
+const CONTACT_WHATSAPP = `https://wa.me/${CONTACT_PHONE.replace(/\D/g, "")}`;
+
 export function Footer() {
   const { t } = useLocale();
   return (
@@ -69,7 +73,18 @@ export function Footer() {
                   </div>
                   <div>
                     <div className="text-[10px] font-black tracking-widest uppercase text-white/20 mb-1">Centre</div>
-                    <p className="text-sm text-[#fdfcf6]/60 font-serif">Palakkad, Kerala, India</p>
+                    <p className="text-sm text-[#fdfcf6]/60 font-serif">{CONTACT_PLACE}</p>
+                  </div>
+                </li>
+                <li className="flex gap-4 group">
+                  <div className="h-10 w-10 rounded-full border border-white/10 flex items-center justify-center text-gold/40 group-hover:text-gold group-hover:border-gold transition-all">
+                    <Phone size={18} />
+                  </div>
+                  <div>
+                    <div className="text-[10px] font-black tracking-widest uppercase text-white/20 mb-1">Mobile</div>
+                    <a href={`tel:${CONTACT_PHONE}`} className="text-sm text-[#fdfcf6]/60 font-serif hover:text-gold transition-colors">
+                      {CONTACT_PHONE}
+                    </a>
                   </div>
                 </li>
                 <li className="flex gap-4 group">
@@ -122,7 +137,10 @@ export function Footer() {
 
       {/* Floating WhatsApp Action (Reference inspired) */}
       <a 
-        href="#" 
+        href={CONTACT_WHATSAPP}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`WhatsApp ${CONTACT_PHONE}`}
         className="fixed bottom-10 right-10 z-50 h-16 w-16 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-all group"
       >
         <MessageCircle size={32} fill="currentColor" className="group-hover:rotate-12 transition-transform" />
