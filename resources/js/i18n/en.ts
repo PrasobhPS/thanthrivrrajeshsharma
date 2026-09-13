@@ -14,6 +14,7 @@ export const en = {
     journal: "Journal",
     media: "Media",
     consultation: "Consultation",
+    callNow: "Call now",
     langEn: "English",
     langMl: "Malayalam",
   },

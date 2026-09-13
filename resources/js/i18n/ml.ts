@@ -16,6 +16,7 @@ export const ml: Messages = {
     journal: "ജേർണൽ",
     media: "മീഡിയ",
     consultation: "കൺസൾട്ടേഷൻ",
+    callNow: "ഇപ്പോൾ വിളിക്കുക",
     langEn: "English",
     langMl: "മലയാളം",
   },

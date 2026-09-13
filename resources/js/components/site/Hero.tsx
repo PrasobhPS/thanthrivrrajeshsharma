@@ -1,8 +1,9 @@
-import { Play, ArrowRight, Search, Activity, ShieldCheck, MessageCircle } from "lucide-react";
+import { Play, ArrowRight, Search, Activity, ShieldCheck, MessageCircle, Phone } from "lucide-react";
 import mudraImg from "@/assets/master-mudra-hero.png";
 import { useLocale } from "@/i18n/LocaleProvider";
 import { useConsultationEnquiry } from "@/components/site/consultation-enquiry-context";
 import { WhatsAppLink } from "@/components/site/WhatsAppLink";
+import { CONTACT_PHONE, CONTACT_PHONE_DISPLAY } from "@/lib/whatsapp";
 
 export function Hero() {
   const { t } = useLocale();
@@ -48,6 +49,14 @@ export function Hero() {
                   >
                     {t("hero.connect")} <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
                   </button>
+                  <a
+                    href={`tel:${CONTACT_PHONE}`}
+                    aria-label={`${t("nav.callNow")} ${CONTACT_PHONE_DISPLAY}`}
+                    className="w-full sm:w-auto px-8 py-5 rounded-full bg-white text-black font-black text-[10px] tracking-widest uppercase hover:bg-gold transition-all shadow-2xl flex items-center justify-center gap-3 font-heading"
+                  >
+                    <Phone size={18} />
+                    {CONTACT_PHONE_DISPLAY}
+                  </a>
                   <WhatsAppLink
                     message={t("whatsapp.greeting")}
                     ariaLabel={t("whatsapp.chatCta")}

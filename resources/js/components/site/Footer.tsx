@@ -1,7 +1,7 @@
 import { Facebook, Instagram, Youtube, Twitter, MapPin, Phone, Mail, QrCode, MessageCircle } from "lucide-react";
 import { useLocale } from "@/i18n/LocaleProvider";
 import { WhatsAppLink } from "@/components/site/WhatsAppLink";
-import { CONTACT_PHONE, CONTACT_PLACE } from "@/lib/whatsapp";
+import { CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_DISPLAY, CONTACT_PLACE } from "@/lib/whatsapp";
 
 export function Footer() {
   const { t } = useLocale();
@@ -81,8 +81,8 @@ export function Footer() {
                   </div>
                   <div>
                     <div className="text-[10px] font-black tracking-widest uppercase text-white/20 mb-1">Mobile</div>
-                    <a href={`tel:${CONTACT_PHONE}`} className="text-sm text-[#fdfcf6]/60 font-serif hover:text-gold transition-colors">
-                      {CONTACT_PHONE}
+                    <a href={`tel:${CONTACT_PHONE}`} className="text-sm text-[#fdfcf6]/80 font-serif hover:text-gold transition-colors">
+                      {CONTACT_PHONE_DISPLAY}
                     </a>
                   </div>
                 </li>
@@ -91,8 +91,10 @@ export function Footer() {
                     <Mail size={18} />
                   </div>
                   <div>
-                    <div className="text-[10px] font-black tracking-widest uppercase text-white/20 mb-1">Communications</div>
-                    <p className="text-sm text-[#fdfcf6]/60 font-serif">oracle@divinecanvas.com</p>
+                    <div className="text-[10px] font-black tracking-widest uppercase text-white/20 mb-1">Email</div>
+                    <a href={`mailto:${CONTACT_EMAIL}`} className="text-sm text-[#fdfcf6]/80 font-serif hover:text-gold transition-colors">
+                      {CONTACT_EMAIL}
+                    </a>
                   </div>
                 </li>
               </ul>
@@ -134,10 +136,17 @@ export function Footer() {
         </div>
       </div>
 
+      <a
+        href={`tel:${CONTACT_PHONE}`}
+        aria-label={`${t("nav.callNow")} ${CONTACT_PHONE_DISPLAY}`}
+        className="fixed bottom-10 left-4 sm:left-10 z-50 h-14 w-14 sm:h-16 sm:w-16 bg-gold text-[#020617] rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-all lg:hidden"
+      >
+        <Phone size={26} />
+      </a>
       <WhatsAppLink
         message={greeting}
         ariaLabel={`${t("whatsapp.chatCta")} ${CONTACT_PHONE}`}
-        className="fixed bottom-10 right-10 z-50 h-16 w-16 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-all group"
+        className="fixed bottom-10 right-4 sm:right-10 z-50 h-14 w-14 sm:h-16 sm:w-16 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-all group"
       >
         <MessageCircle size={32} fill="currentColor" className="group-hover:rotate-12 transition-transform" />
         <div className="absolute right-full mr-6 px-6 py-3 bg-white text-[#020617] rounded-full text-[10px] font-black tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-all translate-x-10 group-hover:translate-x-0 shadow-2xl pointer-events-none whitespace-nowrap">

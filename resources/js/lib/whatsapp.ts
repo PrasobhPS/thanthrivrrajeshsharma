@@ -1,4 +1,6 @@
 export const CONTACT_PHONE = "+918547884351";
+export const CONTACT_PHONE_DISPLAY = "+91 85478 84351";
+export const CONTACT_EMAIL = "rajeshvram@gmail.com";
 export const CONTACT_PLACE = "Vakathanam, Kottayam";
 
 export function whatsappDigits(phone = CONTACT_PHONE): string {
