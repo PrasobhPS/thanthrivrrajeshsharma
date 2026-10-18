@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
@@ -19,6 +20,18 @@ class SiteVisit extends Model
         return [
             'visited_at' => 'datetime',
         ];
+    }
+
+    /**
+     * @param  Builder<static>  $query
+     * @return Builder<static>
+     */
+    public function scopeSummarizedByDate(Builder $query): Builder
+    {
+        return $query
+            ->selectRaw('date(visited_at) as visit_date')
+            ->selectRaw('count(*) as visits_count')
+            ->groupByRaw('date(visited_at)');
     }
 
     public static function countSince(Carbon $since): int
